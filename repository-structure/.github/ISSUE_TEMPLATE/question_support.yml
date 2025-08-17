@@ -1,0 +1,355 @@
+name: ❓ Question & Support
+description: Ask questions or get help using dev-platform patterns
+title: "[Question]: "
+labels: ["question", "support", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reaching out! We're here to help you get the most out of dev-platform patterns.
+        
+        💡 **Quick Resources:**
+        - [README.md](../README.md) - Getting started guide
+        - [CLAUDE.md](../CLAUDE.md) - Claude Code integration
+        - [GitHub Discussions](../discussions) - Community Q&A
+        
+        🤖 **Claude Code Users:** Include Claude interaction details to help us improve AI assistance patterns.
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What type of help do you need?
+      options:
+        - Getting started with dev-platform
+        - Pattern usage help
+        - Pattern composition/combination
+        - Claude Code integration
+        - Troubleshooting error or unexpected behavior
+        - Best practices guidance
+        - Security considerations
+        - Performance optimization
+        - Custom pattern development
+        - Contributing to the project
+        - Project architecture/design
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: question-description
+    attributes:
+      label: Question Description
+      description: |
+        Describe your question or what you're trying to accomplish:
+      placeholder: |
+        What I'm trying to do:
+        [Describe your goal or what you want to accomplish]
+        
+        What I've tried:
+        [Describe what you've already attempted]
+        
+        Where I'm stuck:
+        [Describe specifically where you need help]
+    validations:
+      required: true
+
+  - type: dropdown
+    id: experience-level
+    attributes:
+      label: Experience Level
+      description: How would you describe your experience with similar tools?
+      options:
+        - New to bash/shell scripting
+        - Some bash experience
+        - Experienced with bash/automation
+        - Expert level (helping others)
+        - New to AI-assisted development
+        - Experienced with Claude Code
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-setup
+    attributes:
+      label: Current Setup
+      description: Tell us about your development environment and project
+      placeholder: |
+        Operating System: [macOS, Ubuntu, etc.]
+        Bash Version: [3.x, 4.x, 5.x, or unknown]
+        Project Type: [Node.js, Python, Go, web app, etc.]
+        Claude Code Version: [if applicable]
+        Dev Platform Patterns Used: [which patterns you're working with]
+    validations:
+      required: true
+
+  - type: textarea
+    id: code-example
+    attributes:
+      label: Code/Commands You're Using
+      description: Show us the code or commands you're working with
+      render: bash
+      placeholder: |
+        # What you're trying to do:
+        source patterns/example/pattern.sh
+        
+        # Commands you've run:
+        example_function "some input"
+        
+        # Any error messages:
+        [paste error output here]
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: |
+        I expected:
+        - The pattern to validate my project setup
+        - Clear success/error messages
+        - Integration with my existing workflow
+        - [describe expected outcome]
+    validations:
+      required: false
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened instead?
+      placeholder: |
+        What actually happened:
+        - Error message appeared
+        - Unexpected output
+        - Nothing happened
+        - [describe actual outcome]
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: areas-of-interest
+    attributes:
+      label: Areas of Interest
+      description: Which aspects of dev-platform are you most interested in?
+      options:
+        - label: Error handling and logging
+        - label: Testing automation
+        - label: Quality gates and standards
+        - label: Security best practices
+        - label: Git workflow automation
+        - label: Claude Code AI assistance
+        - label: Pattern composition/chaining
+        - label: Custom pattern development
+        - label: CI/CD integration
+        - label: Team/project standardization
+
+  - type: dropdown
+    id: claude-usage
+    attributes:
+      label: Claude Code Usage
+      description: Are you using this with Claude Code?
+      options:
+        - Yes, actively using Claude Code
+        - Yes, planning to use Claude Code
+        - No, using patterns directly
+        - No, but interested in Claude integration
+        - Not sure what Claude Code is
+    validations:
+      required: true
+
+  - type: textarea
+    id: claude-interaction
+    attributes:
+      label: Claude Code Interaction (if applicable)
+      description: If using Claude Code, describe your interaction
+      placeholder: |
+        Claude Code interaction:
+        - What you asked Claude to do
+        - What Claude recommended or attempted
+        - Any issues with Claude's understanding
+        - How well Claude explained the patterns
+        - Suggestions for improving AI assistance
+    validations:
+      required: false
+
+  - type: textarea
+    id: learning-goals
+    attributes:
+      label: Learning Goals
+      description: What are you hoping to learn or accomplish?
+      placeholder: |
+        Learning goals:
+        - Master automated testing for my projects
+        - Understand security best practices
+        - Set up efficient development workflows
+        - Learn bash scripting techniques
+        - Improve code quality processes
+        - [your specific goals]
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency Level
+      description: How urgent is this question for you?
+      options:
+        - Low (general learning/exploration)
+        - Medium (working on project, not blocked)
+        - High (blocked on current work)
+        - Critical (production issue or deadline)
+    validations:
+      required: true
+
+  - type: textarea
+    id: research-done
+    attributes:
+      label: Research Already Done
+      description: What have you already tried to find the answer?
+      placeholder: |
+        I've already:
+        - Read the README and documentation
+        - Searched existing issues
+        - Tried the suggested examples
+        - Asked in Discord/community (if applicable)
+        - Searched online for similar solutions
+        - [other research efforts]
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: help-type
+    attributes:
+      label: Type of Help Needed
+      description: What kind of help would be most valuable?
+      options:
+        - label: Step-by-step guidance
+        - label: Code examples and templates
+        - label: Best practices explanation
+        - label: Troubleshooting assistance
+        - label: Pattern recommendations
+        - label: Architecture/design advice
+        - label: Learning resources
+        - label: Community connection
+
+  - type: textarea
+    id: success-criteria
+    attributes:
+      label: Success Criteria
+      description: How will you know when your question is answered?
+      placeholder: |
+        This question will be answered when:
+        - I can successfully implement X
+        - I understand how to approach Y
+        - I have working examples of Z
+        - I know the best practices for...
+        - I can explain the concept to others
+    validations:
+      required: false
+
+  - type: textarea
+    id: project-context
+    attributes:
+      label: Project Context
+      description: Tell us about your project (helps us give better advice)
+      placeholder: |
+        Project context:
+        - Type of application/project
+        - Team size and experience level
+        - Development constraints or requirements
+        - Integration needs
+        - Compliance or security requirements
+        - Timeline or urgency factors
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: community-value
+    attributes:
+      label: Community Value
+      description: How might this help others in the community?
+      options:
+        - label: Common beginner question
+        - label: Advanced use case that others might face
+        - label: Integration challenge with popular tools
+        - label: Security or compliance scenario
+        - label: Performance optimization case
+        - label: Educational value for learning
+        - label: Unique or specialized requirement
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Any other information that might help us assist you:
+        - Screenshots of error messages
+        - Links to related resources
+        - Team or organizational constraints
+        - Previous experience with similar tools
+        - Specific tools or frameworks you're using
+      placeholder: "Additional context that might help..."
+
+  - type: checkboxes
+    id: follow-up
+    attributes:
+      label: Follow-up Preferences
+      description: How would you like to continue this conversation?
+      options:
+        - label: GitHub issue discussion is perfect
+        - label: Would appreciate GitHub Discussions thread
+        - label: Open to community calls/meetings
+        - label: Willing to help document the solution
+        - label: Interested in contributing improvements
+
+  - type: checkboxes
+    id: contribution-interest
+    attributes:
+      label: Contribution Interest
+      options:
+        - label: I'd like to help improve documentation based on this question
+        - label: I'm interested in contributing examples or patterns
+        - label: I can help other users with similar questions
+        - label: I'd like to get involved in the community
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I searched existing issues and discussions for similar questions
+          required: true
+        - label: I provided context about my environment and project
+          required: true
+        - label: I described what I've already tried
+          required: true
+        - label: I'm willing to engage in discussion to resolve this question
+          required: true
+        - label: I understand this may help others learn as well
+          required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ## 🎓 Community Learning
+        
+        Your questions help improve dev-platform for everyone! We'll use this to:
+        - Improve documentation and examples
+        - Create better patterns
+        - Enhance Claude Code integration
+        - Build educational resources
+        
+        ## 📞 Additional Support
+        
+        - **Community Discussions:** For broader questions and discussions
+        - **Real-time Help:** Discord community (coming soon)
+        - **Documentation:** See CLAUDE.md for AI-assisted development
+        
+        Thank you for being part of the dev-platform community! 🚀

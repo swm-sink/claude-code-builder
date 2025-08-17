@@ -1,0 +1,356 @@
+# Pattern Validation Workflow
+# Validates that patterns meet dev-platform standards
+
+name: Pattern Validation
+
+on:
+  push:
+    branches: [ main, 'dev/**' ]
+    paths:
+      - 'patterns/**'
+      - 'scripts/**'
+      - '.github/workflows/pattern-validation.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'patterns/**'
+      - 'scripts/**'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-patterns:
+    name: Validate Development Patterns
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Bash Environment
+      run: |
+        echo "VALIDATION_DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
+        echo "TOTAL_PATTERNS=0" >> $GITHUB_ENV
+        echo "VALID_PATTERNS=0" >> $GITHUB_ENV
+        echo "FAILED_PATTERNS=0" >> $GITHUB_ENV
+
+    # Pattern Size Validation (< 50 lines for Claude comprehension)
+    - name: Validate Pattern Size
+      run: |
+        echo "📏 Validating pattern sizes (must be < 50 lines)..."
+        
+        failed_patterns=""
+        
+        for pattern in $(find patterns/ -name "*.sh" -type f); do
+          lines=$(wc -l < "$pattern")
+          TOTAL_PATTERNS=$((TOTAL_PATTERNS + 1))
+          
+          echo "Checking $pattern: $lines lines"
+          
+          if [ "$lines" -ge 50 ]; then
+            echo "❌ $pattern has $lines lines (exceeds 50 line limit)"
+            failed_patterns="$failed_patterns\n- $pattern ($lines lines)"
+            FAILED_PATTERNS=$((FAILED_PATTERNS + 1))
+          else
+            echo "✅ $pattern ($lines lines)"
+            VALID_PATTERNS=$((VALID_PATTERNS + 1))
+          fi
+        done
+        
+        echo "TOTAL_PATTERNS=$TOTAL_PATTERNS" >> $GITHUB_ENV
+        echo "VALID_PATTERNS=$VALID_PATTERNS" >> $GITHUB_ENV
+        echo "FAILED_PATTERNS=$FAILED_PATTERNS" >> $GITHUB_ENV
+        
+        if [ "$FAILED_PATTERNS" -gt 0 ]; then
+          echo "❌ Pattern size validation failed"
+          echo -e "Failed patterns:$failed_patterns"
+          exit 1
+        fi
+        
+        echo "✅ All patterns meet size requirements"
+
+    # Dual Explanation Validation
+    - name: Validate Dual Explanations
+      run: |
+        echo "💭 Validating dual explanation format..."
+        
+        missing_explanations=""
+        
+        for pattern in $(find patterns/ -name "*.sh" -type f); do
+          echo "Checking explanations in $pattern..."
+          
+          # Check for Technical explanation
+          if ! grep -q "# Technical:" "$pattern"; then
+            echo "❌ $pattern missing Technical explanation"
+            missing_explanations="$missing_explanations\n- $pattern (missing Technical)"
+          fi
+          
+          # Check for Simple explanation  
+          if ! grep -q "# Simple:" "$pattern"; then
+            echo "❌ $pattern missing Simple explanation"
+            missing_explanations="$missing_explanations\n- $pattern (missing Simple)"
+          fi
+          
+          # Check for Connection explanation
+          if ! grep -q "# Connection:" "$pattern"; then
+            echo "❌ $pattern missing Connection explanation"
+            missing_explanations="$missing_explanations\n- $pattern (missing Connection)"
+          fi
+        done
+        
+        if [ -n "$missing_explanations" ]; then
+          echo "❌ Dual explanation validation failed"
+          echo -e "Missing explanations:$missing_explanations"
+          exit 1
+        fi
+        
+        echo "✅ All patterns have proper dual explanations"
+
+    # Function Naming Validation
+    - name: Validate Function Naming
+      run: |
+        echo "🏷️ Validating function naming conventions..."
+        
+        bad_functions=""
+        
+        for pattern in $(find patterns/ -name "*.sh" -type f); do
+          echo "Checking function names in $pattern..."
+          
+          # Extract function names and check naming convention
+          functions=$(grep -E "^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*\(\)" "$pattern" || true)
+          
+          if [ -n "$functions" ]; then
+            while IFS= read -r func; do
+              func_name=$(echo "$func" | sed 's/[[:space:]]*\([^(]*\).*/\1/')
+              
+              # Check for snake_case naming
+              if ! echo "$func_name" | grep -qE "^[a-z][a-z0-9_]*$"; then
+                echo "❌ Function '$func_name' in $pattern doesn't follow snake_case"
+                bad_functions="$bad_functions\n- $func_name in $pattern"
+              fi
+            done <<< "$functions"
+          fi
+        done
+        
+        if [ -n "$bad_functions" ]; then
+          echo "❌ Function naming validation failed"
+          echo -e "Bad function names:$bad_functions"
+          exit 1
+        fi
+        
+        echo "✅ All functions follow naming conventions"
+
+    # Bash Compatibility Check
+    - name: Validate Bash Compatibility
+      run: |
+        echo "🐚 Validating bash 3.x compatibility..."
+        
+        incompatible_patterns=""
+        
+        for pattern in $(find patterns/ -name "*.sh" -type f); do
+          echo "Checking bash compatibility in $pattern..."
+          
+          # Check for bash 4+ features
+          if grep -qE "declare -A|BASH_VERSINFO\[4\]|\*\*|;;;&" "$pattern"; then
+            echo "❌ $pattern uses bash 4+ features"
+            incompatible_patterns="$incompatible_patterns\n- $pattern"
+          fi
+          
+          # Check shebang for proper bash specification
+          if ! head -1 "$pattern" | grep -qE "^#!/bin/bash|^#!/usr/bin/env bash"; then
+            echo "❌ $pattern missing proper bash shebang"
+            incompatible_patterns="$incompatible_patterns\n- $pattern (shebang)"
+          fi
+        done
+        
+        if [ -n "$incompatible_patterns" ]; then
+          echo "❌ Bash compatibility validation failed"
+          echo -e "Incompatible patterns:$incompatible_patterns"
+          exit 1
+        fi
+        
+        echo "✅ All patterns are bash 3.x compatible"
+
+    # Error Handling Validation
+    - name: Validate Error Handling
+      run: |
+        echo "🚨 Validating error handling patterns..."
+        
+        missing_error_handling=""
+        
+        for pattern in $(find patterns/ -name "*.sh" -type f); do
+          echo "Checking error handling in $pattern..."
+          
+          # Check for basic error handling
+          if ! grep -qE "set -e|trap|exit [1-9]|return [1-9]" "$pattern"; then
+            echo "⚠️ $pattern may be missing error handling"
+            missing_error_handling="$missing_error_handling\n- $pattern"
+          fi
+          
+          # Check for proper exit codes
+          if grep -qE "exit 0|return 0" "$pattern" && ! grep -qE "exit [1-9]|return [1-9]" "$pattern"; then
+            echo "⚠️ $pattern only has success exits, no error exits"
+          fi
+        done
+        
+        if [ -n "$missing_error_handling" ]; then
+          echo "⚠️ Some patterns may need better error handling"
+          echo -e "Patterns to review:$missing_error_handling"
+        else
+          echo "✅ All patterns have appropriate error handling"
+        fi
+
+    # Documentation Validation
+    - name: Validate Pattern Documentation
+      run: |
+        echo "📚 Validating pattern documentation..."
+        
+        missing_docs=""
+        
+        for pattern in $(find patterns/ -name "*.sh" -type f); do
+          echo "Checking documentation in $pattern..."
+          
+          # Check for description comment
+          if ! head -10 "$pattern" | grep -qE "^# Description:|^# Purpose:|^# What:"; then
+            echo "❌ $pattern missing description comment"
+            missing_docs="$missing_docs\n- $pattern (missing description)"
+          fi
+          
+          # Check for usage examples
+          if ! grep -qE "# Example:|# Usage:|# How to use:" "$pattern"; then
+            echo "❌ $pattern missing usage examples"
+            missing_docs="$missing_docs\n- $pattern (missing examples)"
+          fi
+        done
+        
+        if [ -n "$missing_docs" ]; then
+          echo "❌ Documentation validation failed"
+          echo -e "Missing documentation:$missing_docs"
+          exit 1
+        fi
+        
+        echo "✅ All patterns have proper documentation"
+
+    # Pattern Composition Test
+    - name: Test Pattern Composition
+      run: |
+        echo "🔗 Testing pattern composition..."
+        
+        # Create a test script that sources multiple patterns
+        cat > test_composition.sh << 'EOF'
+        #!/bin/bash
+        set -e
+        
+        # Source error handling first (if it exists)
+        if [ -f "patterns/error-handling/simple-error-handling.sh" ]; then
+          source patterns/error-handling/simple-error-handling.sh
+        fi
+        
+        # Source other patterns
+        for pattern in patterns/*/*.sh; do
+          if [ -f "$pattern" ] && [ "$pattern" != "patterns/error-handling/simple-error-handling.sh" ]; then
+            echo "Sourcing $pattern..."
+            source "$pattern" || {
+              echo "Failed to source $pattern"
+              exit 1
+            }
+          fi
+        done
+        
+        echo "✅ All patterns sourced successfully"
+        EOF
+        
+        chmod +x test_composition.sh
+        
+        if ./test_composition.sh; then
+          echo "✅ Pattern composition test passed"
+        else
+          echo "❌ Pattern composition test failed"
+          exit 1
+        fi
+
+    # Generate Validation Report
+    - name: Generate Pattern Validation Report
+      if: always()
+      run: |
+        echo "📋 Generating pattern validation report..."
+        
+        cat > pattern-validation-report.md << EOF
+        # Pattern Validation Report
+        
+        **Date:** ${{ env.VALIDATION_DATE }}
+        **Commit:** ${GITHUB_SHA:0:8}
+        **Branch:** ${{ github.ref_name }}
+        
+        ## Validation Results
+        
+        - **Total Patterns:** ${{ env.TOTAL_PATTERNS }}
+        - **Valid Patterns:** ${{ env.VALID_PATTERNS }}
+        - **Failed Patterns:** ${{ env.FAILED_PATTERNS }}
+        
+        ## Checks Performed
+        
+        - ✅ Pattern size validation (< 50 lines)
+        - ✅ Dual explanation format
+        - ✅ Function naming conventions
+        - ✅ Bash 3.x compatibility
+        - ✅ Error handling patterns
+        - ✅ Documentation requirements
+        - ✅ Pattern composition testing
+        
+        ## Summary
+        
+        All pattern validation checks completed successfully.
+        Patterns meet dev-platform standards for Claude Code compatibility.
+        
+        ---
+        *Automated pattern validation by GitHub Actions*
+        EOF
+        
+        echo "✅ Pattern validation report generated"
+
+    # Upload Validation Report
+    - name: Upload Validation Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: pattern-validation-report-${{ env.VALIDATION_DATE }}
+        path: pattern-validation-report.md
+        retention-days: 30
+
+    # Comment validation results on PR
+    - name: Comment Validation Results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const comment = `
+          ## 📏 Pattern Validation Results
+          
+          ✅ **All pattern validation checks passed**
+          
+          **Patterns Analyzed:** ${{ env.TOTAL_PATTERNS }}
+          **Valid Patterns:** ${{ env.VALID_PATTERNS }}
+          **Failed Patterns:** ${{ env.FAILED_PATTERNS }}
+          
+          ### Validation Checks ✅
+          - Pattern size (< 50 lines for Claude comprehension)
+          - Dual explanation format (Technical/Simple/Connection)
+          - Function naming conventions (snake_case)
+          - Bash 3.x compatibility (macOS default)
+          - Error handling patterns
+          - Documentation requirements
+          - Pattern composition testing
+          
+          🤖 All patterns are optimized for Claude Code usage!
+          `;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });

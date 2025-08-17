@@ -1,0 +1,190 @@
+name: 🐛 Bug Report
+description: Report a bug or unexpected behavior in dev-platform patterns or scripts
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out this form to help us understand and fix the issue.
+        
+        🔒 **Security Notice:** If this is a security vulnerability, please use our [security policy](https://github.com/swm-sink/dev-platform/security/policy) instead.
+
+  - type: input
+    id: pattern-or-script
+    attributes:
+      label: Pattern/Script Affected
+      description: Which pattern or script is experiencing the bug?
+      placeholder: "e.g., patterns/error-handling/simple-error-handling.sh"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: "Describe what happened..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: "Describe what should have happened..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened instead?
+      placeholder: "Describe what actually happened..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the bug
+      placeholder: |
+        1. Source the pattern: `source patterns/example/pattern.sh`
+        2. Run command: `example_function arg1 arg2`
+        3. See error: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-output
+    attributes:
+      label: Error Output
+      description: Any error messages or unexpected output
+      render: bash
+      placeholder: "Paste error messages here..."
+
+  - type: dropdown
+    id: environment-os
+    attributes:
+      label: Operating System
+      description: Which operating system are you using?
+      options:
+        - macOS (Intel)
+        - macOS (Apple Silicon)
+        - Ubuntu/Debian
+        - CentOS/RHEL/Fedora
+        - Windows (WSL)
+        - Other Linux
+        - Other (specify in additional context)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bash-version
+    attributes:
+      label: Bash Version
+      description: Which bash version are you using?
+      options:
+        - bash 3.x (macOS default)
+        - bash 4.x
+        - bash 5.x
+        - zsh
+        - Other shell (specify in additional context)
+        - Unknown
+    validations:
+      required: true
+
+  - type: input
+    id: claude-code-version
+    attributes:
+      label: Claude Code Version (if applicable)
+      description: If using with Claude Code, what version?
+      placeholder: "e.g., 2.1.0 or 'latest'"
+
+  - type: checkboxes
+    id: pattern-composition
+    attributes:
+      label: Pattern Composition
+      description: Are you using multiple patterns together?
+      options:
+        - label: Single pattern usage
+        - label: Multiple patterns sourced together
+        - label: Custom composition/modification
+
+  - type: textarea
+    id: minimal-example
+    attributes:
+      label: Minimal Reproducible Example
+      description: The smallest code example that demonstrates the bug
+      render: bash
+      placeholder: |
+        #!/bin/bash
+        source patterns/example/pattern.sh
+        # Minimal code that reproduces the issue
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Bug Severity
+      description: How severe is this bug?
+      options:
+        - Critical (blocks all usage)
+        - High (blocks major functionality)
+        - Medium (workaround available)
+        - Low (minor issue)
+        - Documentation/cosmetic
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: workaround
+    attributes:
+      label: Workaround Available
+      options:
+        - label: I have found a workaround
+        - label: I can provide a potential fix
+        - label: This affects multiple patterns
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: |
+        Any other context about the problem:
+        - Project type you're working on
+        - Other tools/frameworks involved
+        - Screenshots if applicable
+        - Workaround details if found
+      placeholder: "Add any additional context here..."
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution Intent
+      options:
+        - label: I'm willing to help fix this bug
+        - label: I can test potential fixes
+        - label: I can provide additional examples
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: I tested with the latest version of the pattern
+          required: true
+        - label: I provided a clear, reproducible example
+          required: true
+        - label: This is not a security vulnerability (see security policy instead)
+          required: true
+        - label: I'm willing to help test the fix
+          required: false
