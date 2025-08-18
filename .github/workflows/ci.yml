@@ -25,6 +25,7 @@ jobs:
     - name: Run pattern tests
       run: |
         ./tests/simple-pattern-test.sh
+        ./tests/pattern-functionality-test.sh
         
     - name: Run architectural validation
       run: |
@@ -33,6 +34,14 @@ jobs:
     - name: Test quick-start functionality
       run: |
         ./scripts/quick-start.sh . --mode=test
+        
+    - name: Test install workflow
+      run: |
+        ./tests/install-workflow-test.sh
+        
+    - name: Test end-to-end user journey
+      run: |
+        ./tests/end-to-end-test.sh
         
     - name: Validate shell compatibility
       run: |
