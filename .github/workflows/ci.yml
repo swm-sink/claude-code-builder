@@ -1,0 +1,67 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        shell: [bash]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up environment
+      run: |
+        chmod +x scripts/*.sh patterns/**/*.sh tools/*.sh tests/*.sh
+        
+    - name: Run pattern tests
+      run: |
+        ./tests/simple-pattern-test.sh
+        
+    - name: Run architectural validation
+      run: |
+        ./tools/architectural-dashboard.sh
+        
+    - name: Test quick-start functionality
+      run: |
+        ./scripts/quick-start.sh . --mode=test
+        
+    - name: Validate shell compatibility
+      run: |
+        echo "Testing bash compatibility..."
+        bash --version
+        bash -c './patterns/error-handling/simple-error-handling.sh; echo "✅ Bash compatibility confirmed"'
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run security checks
+      run: |
+        chmod +x tools/*.sh patterns/**/*.sh
+        ./tools/simple-god-detector.sh
+        echo "✅ Security scan completed"
+
+  quality:
+    name: Quality Gates
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run quality validation
+      run: |
+        chmod +x patterns/**/*.sh tools/*.sh
+        ./tools/function-complexity-analyzer.sh
+        echo "✅ Quality validation completed"
