@@ -27,6 +27,14 @@ parse_setup_args() {
                 ;;
         esac
     done
+    
+    # Auto-detect if we need to look in claude-code-builder subdirectory
+    if [ ! -d "$PROJECT_DIR/patterns" ] && [ -d "$PROJECT_DIR/claude-code-builder/patterns" ]; then
+        PROJECT_DIR="$PROJECT_DIR/claude-code-builder"
+    fi
+    
+    # Export PROJECT_DIR so it's available to other functions
+    export PROJECT_DIR
 }
 
 # Check basic system requirements
@@ -41,10 +49,22 @@ check_requirements() {
 # Validate project structure
 validate_project() {
     local project_dir="${PROJECT_DIR:-.}"
-    [ ! -d "$project_dir/patterns" ] && { echo "❌ Patterns directory not found. Are you in the right directory?"; return 1; }
-    echo "✅ Patterns directory found"
+    
+    # Check current directory first
+    if [ -d "$project_dir/patterns" ]; then
+        echo "✅ Patterns directory found"
+    # Check if we're being called from a parent directory with claude-code-builder
+    elif [ -d "$project_dir/claude-code-builder/patterns" ]; then
+        PROJECT_DIR="$project_dir/claude-code-builder"
+        echo "✅ Patterns directory found in claude-code-builder/"
+    else
+        echo "❌ Patterns directory not found. Are you in the right directory?"
+        echo "💡 Try running from the claude-code-builder directory"
+        return 1
+    fi
+    
     local pattern_count
-    pattern_count=$(find "$project_dir/patterns" -name "*.sh" | wc -l || echo 0)
+    pattern_count=$(find "$PROJECT_DIR/patterns" -name "*.sh" | wc -l || echo 0)
     echo "✅ Found $pattern_count pattern scripts"
     return 0
 }
