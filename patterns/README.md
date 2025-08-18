@@ -1,193 +1,56 @@
 # Patterns Directory
 
-## Overview
+AI-native development patterns optimized for Claude Code integration. Each pattern is <50 lines for instant comprehension.
 
-This directory contains the core Claude Code native development patterns. Each pattern is designed to be:
+## Available Patterns
 
-- **< 50 lines** for easy Claude comprehension
-- **Self-contained** with minimal dependencies  
-- **Cross-platform** compatible (macOS/Linux)
-- **Security-hardened** with no known vulnerabilities
-- **Well-documented** with inline examples
+### 🚨 Error Handling
+- `simple-error-handling.sh` - Structured logging with severity levels
 
-## Pattern Categories
-
-### `/error-handling/`
-Robust error handling patterns for shell scripts and automation.
-
-**Core Patterns:**
-- `simple-error-handling.sh` - Basic error handling and logging functions
-- `advanced-error-handling.sh` - Enhanced error handling with context
-- `error-recovery.sh` - Automatic error recovery patterns
-
-### `/testing/`
-Testing and validation patterns for development workflows.
-
-**Core Patterns:**
+### 🧪 Testing  
 - `simple-test-runner.sh` - Universal test runner with project detection
-- `pattern-validator.sh` - Validate pattern compliance and quality
-- `integration-tester.sh` - Test pattern combinations
 
-### `/quality-gates/`
-Quality assurance and compliance checking patterns.
+### ✅ Quality Gates
+- `quality-check.sh` - Multi-language quality validation
 
-**Core Patterns:**
-- `quality-check.sh` - Multi-language quality gate runner
-- `code-standards.sh` - Enforce coding standards
-- `dependency-audit.sh` - Security and license checking
+### 🔒 Security
+- `security-basics.sh` - Secret detection and vulnerability scanning
 
-### `/security/`
-Security scanning and hardening patterns.
+### 🪝 Git Hooks
+- `git-hooks-setup.sh` - Automated git workflow quality gates
 
-**Core Patterns:**
-- `security-basics.sh` - Essential security checks
-- `secret-detector.sh` - Find exposed secrets and credentials
-- `vulnerability-scanner.sh` - Basic vulnerability detection
+### 📚 Documentation
+- `docs-generator.sh` - Automated documentation generation
 
-### `/git-hooks/`
-Git workflow automation and quality enforcement.
+### ⚙️ Configuration
+- `config-reader.sh` - Environment and JSON configuration handling
 
-**Core Patterns:**
-- `git-hooks-setup.sh` - Easy git hooks installation
-- `pre-commit-quality.sh` - Pre-commit quality gates
-- `commit-standards.sh` - Enforce commit message standards
+### 📊 Validation
+- `project-validator.sh` - Project structure and health validation
 
-## Pattern Structure
+### 🔧 Dependencies  
+- `dependency-checker.sh` - Cross-platform dependency detection
 
-Each pattern follows this structure:
+### 📝 Logging
+- `simple-logging.sh` - Structured logging utilities
 
-```
-pattern-name/
-├── pattern-name.sh          # Main pattern script
-├── README.md               # Pattern documentation
-├── examples/               # Usage examples
-│   ├── basic-usage.sh     # Simple usage example
-│   └── advanced-usage.sh  # Complex usage example
-└── tests/                 # Pattern tests
-    ├── test-pattern.sh    # Pattern validation tests
-    └── test-examples.sh   # Example validation tests
-```
+## Quick Usage
 
-## Pattern Standards
-
-### Code Quality
-- Maximum 50 lines per pattern
-- Bash 3.x compatibility (macOS default)
-- No external dependencies beyond core Unix tools
-- Comprehensive error handling
-- Clear, descriptive variable names
-
-### Documentation
-- Inline comments explaining complex logic
-- Usage examples in comments
-- README.md with full documentation
-- Claude-friendly explanation style
-
-### Security
-- Input validation for all user inputs
-- No command injection vulnerabilities
-- Secure file handling practices
-- Principle of least privilege
-
-### Testing
-- Unit tests for all pattern functions
-- Integration tests for pattern combinations
-- Example validation tests
-- Cross-platform compatibility tests
-
-## Using Patterns
-
-### Quick Usage
 ```bash
-# Source a pattern directly
+# Source any pattern
 source patterns/error-handling/simple-error-handling.sh
 
 # Use pattern functions
-log_info "Starting process..."
-if ! some_command; then
-    log_error "Process failed"
-    exit 1
-fi
-log_info "Process completed successfully"
+log_info "Process starting..."
 ```
 
-### Installation Script
-```bash
-# Install patterns to local project
-./scripts/install-patterns.sh error-handling testing quality-gates
+## Pattern Composition
 
-# Install all patterns
-./scripts/install-patterns.sh --all
-```
-
-### Pattern Composition
 ```bash
-# Combine multiple patterns
+# Combine patterns for workflows
 source patterns/error-handling/simple-error-handling.sh
 source patterns/testing/simple-test-runner.sh
-source patterns/quality-gates/quality-check.sh
 
-# Use combined functionality
-log_info "Running quality gates..."
-if run_quality_checks; then
-    log_info "Quality gates passed"
-else
-    log_error "Quality gates failed"
-    exit 1
-fi
+log_info "Running tests..."
+run_all_tests && log_info "✅ Tests passed"
 ```
-
-## Contributing Patterns
-
-### Pattern Development Process
-1. **Design** - Follow pattern standards and security guidelines
-2. **Implement** - Create pattern with tests and documentation
-3. **Validate** - Run pattern validator and security checks
-4. **Test** - Verify cross-platform compatibility
-5. **Document** - Complete README and examples
-6. **Submit** - Create pull request with pattern review checklist
-
-### Pattern Review Criteria
-- [ ] Under 50 lines
-- [ ] Bash 3.x compatible
-- [ ] Security audit passed
-- [ ] Tests comprehensive
-- [ ] Documentation complete
-- [ ] Examples functional
-- [ ] Claude readability score 8+
-
-## Pattern Lifecycle
-
-### Development Stages
-1. **Draft** - Initial implementation
-2. **Review** - Community and maintainer review
-3. **Testing** - Comprehensive validation
-4. **Stable** - Production ready
-5. **Deprecated** - Marked for removal
-
-### Versioning
-Patterns use semantic versioning:
-- **Major** - Breaking changes
-- **Minor** - New features, backward compatible
-- **Patch** - Bug fixes, no new features
-
-## Support and Issues
-
-### Getting Help
-- Check pattern README.md for usage guidance
-- Review examples/ directory for common use cases
-- Search existing GitHub issues
-- Create new issue with pattern-specific template
-
-### Reporting Issues
-- Use `type: pattern` label
-- Include pattern name and version
-- Provide minimal reproduction case
-- Include system information (OS, bash version)
-
----
-
-**Pattern Library Version:** 1.0.0  
-**Last Updated:** 2025-08-16  
-**Patterns Count:** 15 patterns across 5 categories  
-**Total Lines:** < 750 lines (96% reduction from Level-1-Dev)
