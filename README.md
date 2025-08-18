@@ -303,7 +303,7 @@ Security is our top priority. Dev-platform is:
 - 📝 **Transparently documented** - Open security practices
 - 🚨 **Responsibly disclosed** - Clear vulnerability reporting process
 
-See our [Security Policy](./SECURITY.md) for details on vulnerability reporting.
+See our [Security Policy](./docs/SECURITY.md) for details on vulnerability reporting.
 
 ## 📄 License
 
@@ -325,7 +325,7 @@ Claude Code Builder provides AI-native development patterns specifically designe
 - Security hardening and vulnerability fixes
 - Cross-platform compatibility testing
 
-See [AUTHORS.md](./AUTHORS.md) for complete attribution.
+See [AUTHORS.md](./docs/governance/AUTHORS.md) for complete attribution.
 
 ## 📞 Support
 
