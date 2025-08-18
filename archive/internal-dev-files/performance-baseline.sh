@@ -11,7 +11,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # Configuration
-LEVEL1_DIR="/Users/smenssink/Documents/GitHub/claude-code-builder"
+LEVEL1_DIR="/Users/smenssink/Documents/GitHub/ai-podcasts-nobody-knows/.claude/level-1-dev"
 TEST_ITERATIONS=3
 BASELINE_REPORT="/Users/smenssink/Documents/GitHub/claude-code-builder/performance-baseline-report.md"
 
@@ -45,10 +45,8 @@ measure_script() {
     for i in $(seq 1 $TEST_ITERATIONS); do
         local start_time=$(date +%s.%N)
         
-        # Run the script with timeout (allow any exit code, measure time)
-        timeout 30 "$script_path" $test_args >/dev/null 2>&1
-        local exit_code=$?
-        if [[ $exit_code -eq 0 ]] || [[ $exit_code -eq 1 ]]; then
+        # Run the script with timeout
+        if timeout 30 "$script_path" $test_args >/dev/null 2>&1; then
             local end_time=$(date +%s.%N)
             local duration=$(echo "$end_time - $start_time" | bc -l)
             total_time=$(echo "$total_time + $duration" | bc -l)
@@ -64,45 +62,6 @@ measure_script() {
         test_results+=("$description|${avg_time}s|${success_count}/${TEST_ITERATIONS}")
     else
         echo "  All iterations failed"
-        test_results+=("$description|FAILED|0/${TEST_ITERATIONS}")
-    fi
-}
-
-# Function to measure pattern sourcing performance
-measure_script_sourcing() {
-    local pattern_path="$1"
-    local description="$2"
-    
-    if [ ! -f "$pattern_path" ]; then
-        echo "SKIP: $description (pattern not found)"
-        return
-    fi
-    
-    log_test "Measuring: $description"
-    
-    local total_time=0
-    local success_count=0
-    
-    for i in $(seq 1 $TEST_ITERATIONS); do
-        local start_time=$(date +%s.%N)
-        
-        # Test sourcing in a subshell
-        if (source "$pattern_path" >/dev/null 2>&1); then
-            local end_time=$(date +%s.%N)
-            local duration=$(echo "$end_time - $start_time" | bc -l)
-            total_time=$(echo "$total_time + $duration" | bc -l)
-            success_count=$((success_count + 1))
-        else
-            echo "  Iteration $i: FAILED"
-        fi
-    done
-    
-    if [ $success_count -gt 0 ]; then
-        local avg_time=$(echo "scale=3; $total_time / $success_count" | bc -l)
-        echo "  Average sourcing time: ${avg_time}s (${success_count}/${TEST_ITERATIONS} successful)"
-        test_results+=("$description|${avg_time}s|${success_count}/${TEST_ITERATIONS}")
-    else
-        echo "  All sourcing attempts failed"
         test_results+=("$description|FAILED|0/${TEST_ITERATIONS}")
     fi
 }
@@ -162,20 +121,18 @@ main() {
     # Test major scripts
     cd "$LEVEL1_DIR"
     
-    # Pattern validation and testing
-    measure_script "tests/simple-pattern-test.sh" "Pattern Test Suite"
+    # Help/info commands (fast)
+    measure_script "tests/run-all-tests.sh" "Test Runner Help" "--help"
+    measure_script "quality/quality-dashboard.sh" "Quality Dashboard Help" "--help"
+    measure_script "quality/security-audit.sh" "Security Audit Help" "--help"
     
-    # Architectural compliance tools
-    measure_script "tools/simple-god-detector.sh" "God Object Detection" "repository-structure/patterns/error-handling/simple-error-handling.sh"
-    measure_script "tools/simple-complexity-check.sh" "Complexity Analysis" "repository-structure/patterns/"
-    measure_script "tools/architectural-dashboard.sh" "Architectural Dashboard"
+    # Basic operations
+    measure_script "quality/test-quality-gates.sh" "Quality Gates Test" "--dry-run"
+    measure_script "quality/generate-quality-report.sh" "Quality Report Generation" "--quick"
     
-    # Quick start and installation
-    measure_script "scripts/quick-start.sh" "Quick Start Help" "--help"
-    
-    # Pattern sourcing performance (typical use case)
-    measure_script_sourcing "repository-structure/patterns/error-handling/simple-error-handling.sh" "Error Handling Pattern Sourcing"
-    measure_script_sourcing "repository-structure/patterns/testing/simple-test-runner.sh" "Testing Pattern Sourcing"
+    # Security operations  
+    measure_script "quality/secret-detector.sh" "Secret Detection" "--help"
+    measure_script "quality/dependency-checker.sh" "Dependency Check" "--help"
     
     # File operations
     measure_file_ops
@@ -196,24 +153,15 @@ main() {
         echo "## Analysis"
         echo ""
         echo "### Key Findings:"
-        echo "- **Pattern Test Suite:** $(echo "${test_results[0]}" | cut -d'|' -f2) (validates all 10 patterns)"
-        echo "- **God Object Detection:** $(echo "${test_results[1]}" | cut -d'|' -f2) (single file analysis)"
-        echo "- **Complexity Analysis:** $(echo "${test_results[2]}" | cut -d'|' -f2) (full pattern directory)"
-        echo "- **Architectural Dashboard:** $(echo "${test_results[3]}" | cut -d'|' -f2) (comprehensive health check)"
-        echo "- **Pattern Sourcing:** Fast loading for user scripts"
+        echo "- **Script startup overhead:** $(echo "${test_results[0]}" | cut -d'|' -f2)"
+        echo "- **Help command performance:** Fast (most scripts < 1s for --help)"
+        echo "- **File operation baseline:** Varies by file size"
         echo ""
-        echo "### Performance Targets (Claude Code Builder):"
-        echo "- **Pattern sourcing:** < 0.1s (instant availability for users)"
-        echo "- **Individual tool analysis:** < 2s (single file/pattern check)"
-        echo "- **Full project analysis:** < 10s (comprehensive dashboard)"
-        echo "- **Test suite validation:** < 5s (all pattern functionality)"
-        echo ""
-        echo "### Architectural Quality Metrics:"
-        echo "- **Pattern count:** 10 core patterns (targeting simplicity)"
-        echo "- **Lines per pattern:** ≤50 lines (minimal complexity)"
-        echo "- **Functions per pattern:** ≤7 functions (cognitive load)"
-        echo "- **Test coverage:** 100% pattern validation"
-        echo "- **God object compliance:** 0 violations detected"
+        echo "### Recommendations for Simplification:"
+        echo "- Target < 0.5s for help commands"
+        echo "- Target < 2s for basic operations"
+        echo "- Minimize file I/O in simplified patterns"
+        echo "- Remove complex initialization overhead"
         
     } >> "$BASELINE_REPORT"
     

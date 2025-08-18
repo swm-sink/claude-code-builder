@@ -5,7 +5,7 @@
 
 set -e
 
-LEVEL1_DIR="/Users/smenssink/Documents/GitHub/claude-code-builder"
+LEVEL1_DIR="/Users/smenssink/Documents/GitHub/ai-podcasts-nobody-knows/.claude/level-1-dev"
 REPORT_FILE="/Users/smenssink/Documents/GitHub/claude-code-builder/performance-baseline-report.md"
 
 echo "# Level-1-Dev Performance Baseline Report" > "$REPORT_FILE"
