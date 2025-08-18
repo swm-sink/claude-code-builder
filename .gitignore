@@ -1,0 +1,21 @@
+# Environment variables
+.env*
+
+# Secrets and credentials  
+secret*
+credential*
+*.key
+*.pem
+*.p12
+token*
+
+# Build and system files
+node_modules/
+.DS_Store
+*.log
+
+# Test results
+.nyc_output/
+coverage/
+*.perf
+benchmark-*.txt
