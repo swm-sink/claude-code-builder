@@ -3,6 +3,10 @@
 # Simple: Analyzer that measures how complicated your functions are
 # Connection: Teaches complexity management essential for readable code
 
+# Load complexity helpers
+SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
+source "$SCRIPT_DIR/complexity-helpers.sh" 2>/dev/null
+
 # Analyze function complexity across project
 analyze_complexity() {
     local total_functions=0
@@ -19,39 +23,19 @@ analyze_complexity() {
             func_line=$(echo "$line" | cut -d: -f1)
             func_name=$(echo "$line" | cut -d: -f2 | sed 's/() {.*//')
             
-            # Find function end (next function or end of file)
-            next_func_line=$(grep -n "^[a-zA-Z_][a-zA-Z0-9_]*() {" "$file" | awk -v start="$func_line" 'NR>1 && $1 > start {print $1; exit}')
-            end_line=${next_func_line:-$(wc -l < "$file")}
+            # Find function boundaries and calculate complexity
+            end_line=$(find_next_function "$file" "$func_line")
+            complexity=$(calculate_complexity "$func_line" "$end_line" "$file")
             
-            # Calculate basic complexity metrics
-            func_lines=$((end_line - func_line))
-            branches=$(sed -n "${func_line},${end_line}p" "$file" | grep -c "if\|elif\|case\|&&\|\|\|for\|while" || echo 0)
-            nesting=$(sed -n "${func_line},${end_line}p" "$file" | grep -o "{" | wc -l || echo 0)
-            
-            # Complexity scoring (basic heuristic)
-            complexity=$((func_lines / 10 + branches + nesting / 2))
-            
-            if [ "$complexity" -gt 8 ]; then
-                echo "⚠️  $func_name: High complexity ($complexity points)"
+            # Report complexity level
+            if ! report_complexity "$func_name" "$complexity"; then
                 ((complex_functions++))
-            elif [ "$complexity" -gt 5 ]; then
-                echo "📝 $func_name: Medium complexity ($complexity points)"
-            else
-                echo "✅ $func_name: Low complexity ($complexity points)"
             fi
         done 2>/dev/null
     done
     
-    echo "📈 Complexity Analysis Summary:"
-    echo "   Total functions analyzed: $total_functions"
-    echo "   High complexity functions: $complex_functions"
-    
-    if [ "$complex_functions" -eq 0 ]; then
-        echo "🎉 All functions have manageable complexity!"
-    else
-        echo "💡 Consider refactoring high-complexity functions"
-    fi
-    
+    echo "📈 Summary: $total_functions functions, $complex_functions high complexity"
+    [ "$complex_functions" -eq 0 ] && echo "🎉 All functions manageable!" || echo "💡 Consider refactoring"
     return 0
 }
 
