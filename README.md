@@ -255,9 +255,10 @@ fi
 ## 🔧 Requirements
 
 ### Minimum Requirements
-- **bash 3.2+** (includes all macOS systems)
+- **bash 3.0+** (macOS/Linux - not pure POSIX sh)
 - **git** (for git hooks functionality)
 - **curl** (for installation)
+- **Standard Unix commands** (grep, find, sed, wc)
 
 ### Enhanced Features
 - **Node.js 16+** (for Node.js patterns)
@@ -266,10 +267,11 @@ fi
 - **Docker** (for containerized examples)
 
 ### Supported Platforms
-- ✅ **macOS** (Intel & Apple Silicon)
-- ✅ **Linux** (Ubuntu, Debian, CentOS, Alpine)
-- ✅ **Windows** (WSL2)
+- ✅ **macOS** (Intel & Apple Silicon) - bash 3.2+
+- ✅ **Linux** (Ubuntu, Debian, CentOS, Alpine) - bash 3.0+
+- ✅ **Windows** (WSL2 with bash)
 - ✅ **CI/CD** (GitHub Actions, GitLab CI, Jenkins)
+- ❌ **Not supported**: Pure POSIX sh, dash, busybox ash
 
 ## 🚀 Installation Options
 

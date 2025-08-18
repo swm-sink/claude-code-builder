@@ -48,6 +48,10 @@ jobs:
         echo "Testing bash compatibility..."
         bash --version
         bash -c './patterns/error-handling/simple-error-handling.sh; echo "✅ Bash compatibility confirmed"'
+        
+    - name: Run cross-platform validation
+      run: |
+        ./tests/simple-platform-test.sh
 
   security:
     name: Security Scan
