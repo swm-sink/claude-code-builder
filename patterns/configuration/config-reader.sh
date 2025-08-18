@@ -32,8 +32,17 @@ has_config() {
 # Get configuration value with environment variable fallback
 get_config() {
     local key="$1" config_file="${2:-.env}" default_value="${3:-}"
+    
+    # Validate key parameter to prevent injection attacks
+    [[ "$key" =~ ^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*$ ]] || {
+        echo "❌ Invalid key format: $key" >&2
+        echo "$default_value"
+        return 1
+    }
+    
+    # Safe environment variable access (bash/zsh compatible)
     local env_value
-    env_value=$(eval echo "\$${key}" 2>/dev/null)
+    env_value=$(printenv "$key" 2>/dev/null)
     [[ -n "$env_value" ]] && echo "$env_value" && return
     read_config "$config_file" "$key" "$default_value"
 }

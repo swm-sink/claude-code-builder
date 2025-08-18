@@ -27,6 +27,7 @@ run_test() {
     echo "Running: $test_name"
     tests_run=$((tests_run + 1))
     
+    # SECURITY WARNING: eval is dangerous - this archived code should not be used
     if eval "$test_command"; then
         log_info "$test_name passed"
         tests_passed=$((tests_passed + 1))
