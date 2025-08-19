@@ -24,15 +24,15 @@ handle_error() {
 }
 
 # Check if command exists
-command_exists() { command -v "$1" >/dev/null 2>&1; }
+check_command_exists() { command -v "$1" >/dev/null 2>&1; }
 
 # Demo function showing all logging levels
-demo_error_handling() {
+test_error_handling() {
     log_info "Starting error handling demo"
     log_warn "This is a warning message"
     log_error "This is an error (demo continues)"
     DEBUG=1 log_debug "Debug message (only when DEBUG=1)"
-    command_exists "git" && log_info "Git available" || log_warn "Git not found"
+    check_command_exists "git" && log_info "Git available" || log_warn "Git not found"
     log_info "Demo completed successfully"
 }
 

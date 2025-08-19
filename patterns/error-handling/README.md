@@ -18,8 +18,8 @@
 - `log_error(message)` - Red [ERROR] messages to stderr
 - `log_debug(message)` - Blue [DEBUG] messages (when DEBUG=1)
 - `handle_error(line, message)` - Error with context and exit
-- `command_exists(command)` - Check if command is available
-- `demo_error_handling()` - Demonstration of all functions
+- `check_command_exists(command)` - Check if command is available
+- `test_error_handling()` - Demonstration of all functions
 
 **Line Count:** 43 lines (Claude-optimized)
 
@@ -34,7 +34,7 @@ log_info "Application starting up"
 log_warn "Configuration file not found, using defaults"
 
 # Check dependencies
-if ! command_exists "git"; then
+if ! check_command_exists "git"; then
     log_error "Git is required but not installed"
     exit 1
 fi
@@ -106,7 +106,7 @@ validate_code_quality() {
 ```bash
 # Run the demo
 source patterns/error-handling/simple-error-handling.sh
-demo_error_handling
+test_error_handling
 
 # Test individual functions
 log_info "Testing info logging"
@@ -118,8 +118,8 @@ DEBUG=1 log_debug "Debug mode active"
 DEBUG=0 log_debug "This won't show"
 
 # Test command checking
-command_exists "git" && echo "Git available"
-command_exists "fake_command" || echo "Command not found"
+check_command_exists "git" && echo "Git available"
+check_command_exists "fake_command" || echo "Command not found"
 ```
 
 ## 🔍 Troubleshooting

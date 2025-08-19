@@ -4,7 +4,7 @@
 # Connection: Teaches documentation automation essential for maintainable software
 
 # Generate project README with structure analysis
-generate_readme() {
+create_readme() {
     local dir="${1:-.}" name="$(basename "$(realpath "$dir")")" 
     cat > "$dir/README.md" << EOF
 # $name
@@ -25,7 +25,7 @@ EOF
 }
 
 # Generate API documentation from shell patterns
-generate_api_docs() {
+create_api_docs() {
     local dir="${1:-patterns}"
     echo "# API Reference" > "$dir/API.md"
     find "$dir" -name "*.sh" 2>/dev/null | head -3 | while read -r script; do
@@ -36,7 +36,7 @@ generate_api_docs() {
 }
 
 # Create installation script with dependency detection  
-generate_install_script() {
+create_install_script() {
     local dir="${1:-.}"
     cat > "$dir/install.sh" << 'EOF'
 #!/bin/bash

@@ -1,0 +1,156 @@
+name: 🧩 Pattern Submission
+description: Submit a new pattern for inclusion in Claude Code Builder
+title: "[PATTERN] "
+labels: ["pattern-submission", "needs-review"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for contributing a new pattern! Please ensure your pattern follows Claude Code Builder standards:
+        - **<50 lines** for optimal Claude comprehension
+        - **Triple explanation format** (Technical/Simple/Connection)
+        - **Security-first design** (no eval, exec, or dangerous operations)
+        - **Bash 3.0+ compatibility**
+
+  - type: input
+    id: pattern-name
+    attributes:
+      label: Pattern Name
+      description: What is the name of your pattern?
+      placeholder: e.g., database-backup, api-testing, deployment-validator
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Pattern Category
+      description: Which category does this pattern belong to?
+      options:
+        - error-handling
+        - testing
+        - security
+        - quality-gates
+        - dependencies
+        - configuration
+        - logging
+        - git-hooks
+        - documentation
+        - project-validation
+        - new-category
+    validations:
+      required: true
+
+  - type: input
+    id: new-category
+    attributes:
+      label: New Category Name (if selected above)
+      description: If you selected "new-category", what should it be called?
+      placeholder: e.g., database-patterns, api-patterns
+
+  - type: textarea
+    id: technical-explanation
+    attributes:
+      label: Technical Explanation
+      description: Precise technical description of what the pattern does
+      placeholder: "Technical: Implements automated database backup with rotation and compression using pg_dump and configurable retention policies"
+    validations:
+      required: true
+
+  - type: textarea
+    id: simple-explanation
+    attributes:
+      label: Simple Explanation
+      description: Easy-to-understand explanation using analogies
+      placeholder: "Simple: Like having a reliable assistant that automatically saves copies of your important data and keeps your storage organized"
+    validations:
+      required: true
+
+  - type: textarea
+    id: connection-explanation
+    attributes:
+      label: Connection Explanation
+      description: What transferable skill or concept does this teach?
+      placeholder: "Connection: Teaches backup strategies and data lifecycle management essential for production systems"
+    validations:
+      required: true
+
+  - type: textarea
+    id: pattern-code
+    attributes:
+      label: Pattern Code
+      description: The complete pattern implementation (must be <50 lines)
+      placeholder: |
+        #!/bin/bash
+        # Technical: [Your technical explanation]
+        # Simple: [Your simple explanation]
+        # Connection: [Your connection explanation]
+        
+        # Your pattern functions here...
+      render: bash
+    validations:
+      required: true
+
+  - type: textarea
+    id: usage-examples
+    attributes:
+      label: Usage Examples
+      description: Show how to use your pattern with practical examples
+      placeholder: |
+        # Example usage:
+        source ./patterns/your-category/your-pattern.sh
+        your_function "parameter"
+    validations:
+      required: true
+
+  - type: textarea
+    id: testing
+    attributes:
+      label: Testing
+      description: How have you tested this pattern? What edge cases did you consider?
+      placeholder: Describe your testing approach and any edge cases you've handled.
+    validations:
+      required: true
+
+  - type: input
+    id: line-count
+    attributes:
+      label: Line Count
+      description: How many lines is your pattern? (Must be ≤50)
+      placeholder: e.g., 42
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: requirements
+    attributes:
+      label: Pattern Requirements
+      description: Please confirm your pattern meets these requirements
+      options:
+        - label: Pattern is ≤50 lines (excluding comments and blank lines)
+          required: true
+        - label: Includes all three explanation types (Technical/Simple/Connection)
+          required: true
+        - label: No use of eval, exec, or other dangerous operations
+          required: true
+        - label: Compatible with bash 3.0+
+          required: true
+        - label: Functions have descriptive names
+          required: true
+        - label: Includes error handling where appropriate
+          required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution Agreement
+      description: Legal and licensing confirmations
+      options:
+        - label: I own the rights to this code or it's available under MIT license
+          required: true
+        - label: I agree to license this contribution under MIT license
+          required: true
+        - label: I have tested this pattern on my system
+          required: true

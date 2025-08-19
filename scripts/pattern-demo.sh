@@ -4,7 +4,7 @@
 # Connection: Teaches pattern usage essential for AI-assisted development
 
 # Demo error handling pattern functionality
-demo_error_handling() {
+test_error_handling_demo() {
     local project_dir="${1:-.}"
     
     echo ""
@@ -42,6 +42,6 @@ run_demo_if_needed() {
         return 0
     fi
     
-    demo_error_handling "$project_dir"
+    test_error_handling_demo "$project_dir"
     show_completion
 }

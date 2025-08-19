@@ -1,0 +1,102 @@
+name: 🐛 Bug Report
+description: Report a bug in Claude Code Builder patterns
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill out the information below to help us understand and reproduce the issue.
+
+  - type: input
+    id: pattern
+    attributes:
+      label: Pattern Affected
+      description: Which pattern is causing the issue?
+      placeholder: e.g., error-handling, dependency-checker, security-basics
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: Describe what happened and what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Provide step-by-step instructions to reproduce the bug.
+      placeholder: |
+        1. Source the pattern: `source ./patterns/error-handling/simple-error-handling.sh`
+        2. Run command: `log_info "test"`
+        3. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened? Include any error messages.
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: What OS are you using?
+      placeholder: e.g., macOS 14.0, Ubuntu 22.04, Windows 11 (WSL2)
+    validations:
+      required: true
+
+  - type: input
+    id: shell
+    attributes:
+      label: Shell Version
+      description: What shell and version are you using?
+      placeholder: e.g., bash 5.1.16, zsh 5.8.1
+    validations:
+      required: true
+
+  - type: input
+    id: project-type
+    attributes:
+      label: Project Type
+      description: What type of project are you working on?
+      placeholder: e.g., Node.js, Python, Go, React, etc.
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here.
+      placeholder: Screenshots, logs, configuration files, etc.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: I have tested with the latest version of Claude Code Builder
+          required: true
+        - label: I have included all relevant information above
+          required: true

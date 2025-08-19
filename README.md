@@ -34,7 +34,7 @@ curl -sSL https://raw.githubusercontent.com/swm-sink/claude-code-builder/main/sc
 ./claude-code-builder/scripts/quick-start.sh
 
 # 3. Test your setup
-git add README.md && git commit -m "Test dev-platform setup"
+git add README.md && git commit -m "Test claude-code-builder setup"
 # ✅ Claude Code patterns integrated!
 ```
 
@@ -125,15 +125,15 @@ git add README.md && git commit -m "Test dev-platform setup"
 
 ### Node.js Project Setup
 ```bash
-# Create new Node.js project with dev-platform
+# Create new Node.js project with claude-code-builder
 npx create-react-app my-app
 cd my-app
 
-# Add dev-platform patterns
-curl -sSL https://get.dev-platform.org/nodejs | bash
+# Add claude-code-builder patterns
+curl -sSL https://raw.githubusercontent.com/smenssink/claude-code-builder/main/scripts/install.sh | bash
 
 # Commit triggers automatic quality checks
-git add . && git commit -m "Initial commit with dev-platform"
+git add . && git commit -m "Initial commit with claude-code-builder"
 # ✅ ESLint passed
 # ✅ Tests passed  
 # ✅ Security scan passed
@@ -233,14 +233,14 @@ fi
 ### 📈 **Growing Fast**
 - **1000+ GitHub stars** (target: 2025)
 - **50+ contributors** from around the world
-- **500+ projects** using dev-platform patterns
+- **500+ projects** using claude-code-builder patterns
 - **Active community** discussions and support
 
 ### 🤝 **Get Involved**
-- 💬 [Discussions](https://github.com/swm-sink/dev-platform/discussions) - Ask questions and share ideas
-- 🐛 [Issues](https://github.com/swm-sink/dev-platform/issues) - Report bugs or request features
-- 🔀 [Pull Requests](https://github.com/swm-sink/dev-platform/pulls) - Contribute code or documentation
-- 📖 [Wiki](https://github.com/swm-sink/dev-platform/wiki) - Community knowledge base
+- 💬 [Discussions](https://github.com/smenssink/claude-code-builder/discussions) - Ask questions and share ideas
+- 🐛 [Issues](https://github.com/smenssink/claude-code-builder/issues) - Report bugs or request features
+- 🔀 [Pull Requests](https://github.com/smenssink/claude-code-builder/pulls) - Contribute code or documentation
+- 📖 [Wiki](https://github.com/smenssink/claude-code-builder/wiki) - Community knowledge base
 
 ### 🌟 **Success Stories**
 > "Dev-platform reduced our onboarding time from days to hours. New developers can be productive immediately with consistent, AI-friendly patterns."  
@@ -259,6 +259,11 @@ fi
 - **git** (for git hooks functionality)
 - **curl** (for installation)
 - **Standard Unix commands** (grep, find, sed, wc)
+
+### Shell Compatibility
+- ✅ **bash**: Fully supported and recommended
+- ⚠️ **zsh**: Patterns work but may need `bash -c` wrapper for optimal experience
+- ❌ **fish, dash, ash**: Not supported (bash-specific features required)
 
 ### Enhanced Features
 - **Node.js 16+** (for Node.js patterns)

@@ -4,7 +4,7 @@
 # Connection: Teaches test automation and project introspection patterns used in CI/CD
 
 # Detect project type based on files present
-detect_project_type() {
+check_project_type() {
     [[ -f "package.json" ]] && echo "nodejs" && return
     [[ -f "requirements.txt" || -f "pyproject.toml" ]] && echo "python" && return
     [[ -f "go.mod" ]] && echo "golang" && return
@@ -15,7 +15,7 @@ detect_project_type() {
 
 # Run tests based on project type
 run_project_tests() {
-    case "$(detect_project_type)" in
+    case "$(check_project_type)" in
         "nodejs") grep -q '"test"' package.json && npm test || echo "No npm test script" ;;
         "python") command -v pytest >/dev/null && pytest || python -m unittest discover 2>/dev/null ;;
         "golang") go test ./... 2>/dev/null || echo "No Go tests found" ;;
@@ -27,7 +27,7 @@ run_project_tests() {
 
 # Run all tests with status reporting
 run_all_tests() {
-    local project_type=$(detect_project_type)
+    local project_type=$(check_project_type)
     echo "Detected project type: $project_type"
     
     if run_project_tests; then
@@ -41,7 +41,7 @@ run_all_tests() {
 
 # Quick test check without running
 has_tests() {
-    local type=$(detect_project_type)
+    local type=$(check_project_type)
     case "$type" in
         "nodejs") grep -q '"test"' package.json ;;
         "python"|"golang"|"rust") return 0 ;;

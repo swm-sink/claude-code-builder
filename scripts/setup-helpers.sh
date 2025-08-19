@@ -37,10 +37,44 @@ parse_setup_args() {
     export PROJECT_DIR
 }
 
+# Detect current shell environment
+detect_shell() {
+    if [[ -n "$ZSH_VERSION" ]]; then
+        echo "zsh"
+    elif [[ -n "$BASH_VERSION" ]]; then
+        echo "bash"
+    else
+        echo "unknown"
+    fi
+}
+
+# Handle shell compatibility warnings and guidance
+handle_shell_compatibility() {
+    local shell_type=$(detect_shell)
+    case "$shell_type" in
+        zsh)
+            echo "⚠️  Detected zsh shell - patterns optimized for bash"
+            echo "💡 For best experience, run: bash -c 'source pattern.sh && your_command'"
+            echo "📚 Or switch to bash temporarily: exec bash"
+            ;;
+        bash)
+            echo "✅ Running in bash - optimal compatibility"
+            ;;
+        *)
+            echo "❓ Unknown shell ($shell_type) - bash recommended for best compatibility"
+            echo "💡 Install bash: brew install bash (macOS) or apt install bash (Linux)"
+            ;;
+    esac
+}
+
 # Check basic system requirements
 check_requirements() {
     echo "🚀 Claude Code Builder Quick Start"
     echo "Project directory: ${PROJECT_DIR:-.}"
+    
+    # Check shell compatibility first
+    handle_shell_compatibility
+    
     command -v bash >/dev/null 2>&1 || { echo "❌ Bash not found. Please install bash."; return 1; }
     echo "✅ Bash version: $(bash --version | head -1)"
     return 0

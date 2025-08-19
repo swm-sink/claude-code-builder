@@ -4,7 +4,7 @@
 # Connection: Teaches configuration management essential for building flexible, maintainable applications
 
 # Read configuration value from file
-read_config() {
+parse_config() {
     local config_file="$1" key="$2" default_value="${3:-}"
     [[ -f "$config_file" ]] || { echo "$default_value"; return 1; }
     
@@ -16,7 +16,7 @@ read_config() {
 }
 
 # Read from environment-style configuration file (most common)
-read_env_config() {
+parse_env_config() {
     local config_file="$1" key="$2" default_value="${3:-}"
     [[ -f "$config_file" ]] || { echo "$default_value"; return 1; }
     local value
@@ -44,7 +44,7 @@ get_config() {
     local env_value
     env_value=$(printenv "$key" 2>/dev/null)
     [[ -n "$env_value" ]] && echo "$env_value" && return
-    read_config "$config_file" "$key" "$default_value"
+    parse_config "$config_file" "$key" "$default_value"
 }
 
 # Validate configuration file format

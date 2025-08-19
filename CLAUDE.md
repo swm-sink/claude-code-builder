@@ -2,6 +2,113 @@
 
 > **This file optimizes Claude Code's understanding and assistance with claude-code-builder patterns**
 
+## 🚫 META-PROMPTING ENFORCEMENT - MANDATORY WORKFLOW
+
+**CRITICAL:** This project requires strict adherence to the meta-prompting development process. **NO CODE SHALL BE WRITTEN WITHOUT COMPLETING /plan FIRST.**
+
+### 10-Step Execution Process (MANDATORY)
+
+1. **Think & Analyze** - Deep analysis of current state and requirements
+2. **Identify Impacts** - Second and third order consequences assessment
+3. **Research & Validate** - Use `/research` if needed for knowledge gaps
+4. **Plan & Design** - Use `/plan` (MANDATORY before any code)
+5. **Decompose** - Use `/decompose` for complex tasks
+6. **Implement with TDD** - Use `/implement-tdd` following RED-GREEN-REFACTOR
+7. **Assess Quality** - Use `/assess` before any commits
+8. **Validate Integration** - Use `/validate` for production readiness
+9. **Commit Changes** - Use `/commit` with structured messages
+10. **Retrospect & Learn** - Use `/retrospect` to capture insights
+
+### Blocking Conditions
+- 🚫 **Cannot write code without completing `/plan`**
+- 🚫 **Cannot commit without `/assess` quality validation**
+- 🚫 **Cannot deploy without `/validate` integration testing**
+- 🚫 **Must think hard and prioritize accuracy throughout**
+- 🚫 **Must assess second and third order impacts holistically**
+
+### Enforcement Protocol
+This aligns with the CLAUDE.md mandatory workflow while incorporating the user's emphasis on thorough thinking and impact analysis. All development work MUST follow this structured approach to ensure high quality, well-considered changes rather than superficial modifications.
+
+## 🔒 MANDATORY PRE-PUSH VALIDATION - 50 STEPS
+
+**ABSOLUTELY CRITICAL:** Before ANY git push to GitHub, ALL 50 validation steps in `PRE_PUSH_CHECKLIST.md` MUST be completed and verified.
+
+### 🚫 BLOCKING CONDITIONS FOR GIT PUSH
+
+- 🚫 **CANNOT PUSH without completing all 50 validation steps**
+- 🚫 **CANNOT PUSH without running automated validation script**
+- 🚫 **CANNOT PUSH if any validation check fails**
+- 🚫 **CANNOT PUSH without documenting validation completion**
+- 🚫 **NO EXCEPTIONS** - Emergency fixes must follow emergency override protocol
+
+### 50-Step Validation Requirements
+
+**Categories (5 checks each):**
+1. **Pattern Integrity** - Size, format, naming, syntax, documentation
+2. **Security Validation** - No dangerous commands, secrets, input validation
+3. **Testing Coverage** - Pattern tests, integration, error recovery, load, edge cases
+4. **Documentation** - README, API docs, changelogs, links
+5. **Performance** - Loading speed, memory, execution, benchmarks
+6. **Code Quality** - Readability scores, anti-patterns, shellcheck, style
+7. **Error Handling** - Error paths, messages, line numbers, recovery
+8. **Configuration** - No hardcoded values, environment docs, validation
+9. **CI/CD Readiness** - Workflows, tests, Docker, cross-platform
+10. **Project Hygiene** - No temp files, gitignore, conflicts, commits
+
+### Validation Execution Protocol
+
+**Step 1: Manual Review**
+```bash
+# Open and review PRE_PUSH_CHECKLIST.md
+# Complete each of the 50 checks manually
+# Document any issues found and resolved
+```
+
+**Step 2: Automated Validation**
+```bash
+# Run comprehensive validation script
+./scripts/validate-pre-push.sh --verbose --strict
+
+# Must return: "✅ ALL 50 CHECKS PASSED - READY FOR PUSH"
+```
+
+**Step 3: Final Verification**
+```bash
+# Confirm all checks passed
+echo "Pre-push validation completed: $(date)" >> .validation-log
+git add .validation-log
+```
+
+**Step 4: Authorized Push**
+```bash
+# Only after ALL validations pass
+git push origin main
+```
+
+### Emergency Override Protocol
+
+**ONLY for critical production fixes:**
+
+1. Document override reason in commit message
+2. Use format: `EMERGENCY OVERRIDE: [critical issue] - validation bypassed`
+3. Create immediate follow-up issue to complete validation
+4. Schedule emergency review within 24 hours
+
+### Enforcement Consequences
+
+**Violation of pre-push validation:**
+- 🚫 Immediate rollback of changes
+- 🚫 Requirement to complete full validation
+- 🚫 Documentation of violation and remediation
+- 🚫 Process review and strengthening
+
+**This pre-push validation ensures:**
+- Project integrity and quality
+- Security and performance standards
+- Documentation completeness
+- Testing coverage
+- Production readiness
+
 ## 🎯 Claude Code Integration Overview
 
 **Technical:** Claude Code Builder provides Claude Code native development patterns designed for AI comprehension and assistance, with patterns under 50 lines each and dual explanations for optimal context understanding.
@@ -189,7 +296,7 @@ production_validation() {
 ## 🎛️ Claude Assistance Patterns
 
 ### User Onboarding
-When users are new to dev-platform:
+When users are new to claude-code-builder:
 
 1. **Start Simple:** Recommend error-handling pattern first
 2. **Show Impact:** Demonstrate immediate value with examples
@@ -360,7 +467,7 @@ When assisting users, Claude can teach:
 Help users understand transferable concepts:
 
 - **From bash patterns → other languages**
-- **From dev-platform → broader DevOps practices**
+- **From claude-code-builder → broader DevOps practices**
 - **From patterns → architectural thinking**
 
 ### Progressive Complexity
@@ -374,6 +481,6 @@ Guide users from simple to advanced usage:
 ---
 
 **Claude Code Version:** Optimized for Claude Code 2025  
-**Pattern Compatibility:** All dev-platform patterns  
+**Pattern Compatibility:** All claude-code-builder patterns  
 **Update Frequency:** Updated with each pattern release  
 **Context Window:** Optimized for 200K token window
