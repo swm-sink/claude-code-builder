@@ -27,7 +27,7 @@ Claude Code Builder is specifically optimized for Claude Code integration, provi
 
 ### 1. Installation
 ```bash
-curl -sSL https://raw.githubusercontent.com/smenssink/claude-code-builder/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/swm-sink/claude-code-builder/main/scripts/install.sh | bash
 ```
 
 ### 2. Claude Code Setup

@@ -28,7 +28,7 @@
 
 ```bash
 # 1. Install patterns for your project
-curl -sSL https://raw.githubusercontent.com/smenssink/claude-code-builder/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/swm-sink/claude-code-builder/main/scripts/install.sh | bash
 
 # 2. Initialize patterns for your project
 ./claude-code-builder/scripts/quick-start.sh
@@ -130,7 +130,7 @@ npx create-react-app my-app
 cd my-app
 
 # Add claude-code-builder patterns
-curl -sSL https://raw.githubusercontent.com/smenssink/claude-code-builder/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/swm-sink/claude-code-builder/main/scripts/install.sh | bash
 
 # Commit triggers automatic quality checks
 git add . && git commit -m "Initial commit with claude-code-builder"
@@ -237,10 +237,10 @@ fi
 - **Active community** discussions and support
 
 ### 🤝 **Get Involved**
-- 💬 [Discussions](https://github.com/smenssink/claude-code-builder/discussions) - Ask questions and share ideas
-- 🐛 [Issues](https://github.com/smenssink/claude-code-builder/issues) - Report bugs or request features
-- 🔀 [Pull Requests](https://github.com/smenssink/claude-code-builder/pulls) - Contribute code or documentation
-- 📖 [Wiki](https://github.com/smenssink/claude-code-builder/wiki) - Community knowledge base
+- 💬 [Discussions](https://github.com/swm-sink/claude-code-builder/discussions) - Ask questions and share ideas
+- 🐛 [Issues](https://github.com/swm-sink/claude-code-builder/issues) - Report bugs or request features
+- 🔀 [Pull Requests](https://github.com/swm-sink/claude-code-builder/pulls) - Contribute code or documentation
+- 📖 [Wiki](https://github.com/swm-sink/claude-code-builder/wiki) - Community knowledge base
 
 ### 🌟 **Success Stories**
 > "Dev-platform reduced our onboarding time from days to hours. New developers can be productive immediately with consistent, AI-friendly patterns."  
@@ -282,13 +282,13 @@ fi
 
 ### Quick Install (Recommended)
 ```bash
-git clone https://github.com/smenssink/claude-code-builder.git
+git clone https://github.com/swm-sink/claude-code-builder.git
 cd claude-code-builder && ./scripts/quick-start.sh
 ```
 
 ### Manual Installation
 ```bash
-git clone https://github.com/smenssink/claude-code-builder.git
+git clone https://github.com/swm-sink/claude-code-builder.git
 cd claude-code-builder
 ./scripts/quick-start.sh --all
 ```
@@ -296,7 +296,7 @@ cd claude-code-builder
 ### Package Managers
 ```bash
 # Direct clone (Recommended)
-git clone https://github.com/smenssink/claude-code-builder.git
+git clone https://github.com/swm-sink/claude-code-builder.git
 
 # Quick setup
 cd claude-code-builder && ./scripts/quick-start.sh
@@ -340,9 +340,9 @@ See [AUTHORS.md](./docs/governance/AUTHORS.md) for complete attribution.
 ### 🆘 Need Help?
 
 - 📖 **Documentation** - Check our [comprehensive docs](./docs/)
-- 💬 **Community** - Join [GitHub Discussions](https://github.com/smenssink/claude-code-builder/discussions)
-- 🐛 **Bug Reports** - Create an [issue](https://github.com/smenssink/claude-code-builder/issues)
-- 💡 **Feature Requests** - Propose new features via [issues](https://github.com/smenssink/claude-code-builder/issues)
+- 💬 **Community** - Join [GitHub Discussions](https://github.com/swm-sink/claude-code-builder/discussions)
+- 🐛 **Bug Reports** - Create an [issue](https://github.com/swm-sink/claude-code-builder/issues)
+- 💡 **Feature Requests** - Propose new features via [issues](https://github.com/swm-sink/claude-code-builder/issues)
 
 ### 🚀 Professional Support
 
@@ -355,7 +355,7 @@ For support with Claude Code agent development and custom patterns:
 
 <div align="center">
 
-**[⭐ Star us on GitHub](https://github.com/smenssink/claude-code-builder)** • **[📖 Read the Docs](./docs/)** • **[🤝 Contribute](./CONTRIBUTING.md)** • **[💬 Join Discussions](https://github.com/smenssink/claude-code-builder/discussions)**
+**[⭐ Star us on GitHub](https://github.com/swm-sink/claude-code-builder)** • **[📖 Read the Docs](./docs/)** • **[🤝 Contribute](./CONTRIBUTING.md)** • **[💬 Join Discussions](https://github.com/swm-sink/claude-code-builder/discussions)**
 
 Made with ❤️ for Claude Code users everywhere
 
