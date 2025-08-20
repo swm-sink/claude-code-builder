@@ -136,6 +136,15 @@ cd "$PROJECT_ROOT"
 log_info "🔒 Starting Pre-Push Validation (50 checks)"
 log_info "Mode: $(if [[ "$VERBOSE" == "true" ]]; then echo "VERBOSE"; else echo "SUMMARY"; fi) | $(if [[ "$STRICT" == "true" ]]; then echo "STRICT"; else echo "STANDARD"; fi)"
 
+# 🚫 CRITICAL: PAT Authentication Validation (MANDATORY)
+log_info "🔐 CRITICAL: PAT Authentication Enforcement"
+if ! ./scripts/validate-pat.sh; then
+    log_error "🚫 PAT validation FAILED - CANNOT PROCEED"
+    log_error "This violates CLAUDE.md PAT enforcement requirements"
+    exit 1
+fi
+log_success "✅ PAT authentication enforced successfully"
+
 # 1. Pattern Integrity (5 checks)
 log_info "📁 1. Pattern Integrity Validation"
 

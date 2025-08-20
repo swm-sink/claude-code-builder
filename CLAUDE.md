@@ -39,7 +39,37 @@ This aligns with the CLAUDE.md mandatory workflow while incorporating the user's
 - 🚫 **CANNOT PUSH without running automated validation script**
 - 🚫 **CANNOT PUSH if any validation check fails**
 - 🚫 **CANNOT PUSH without documenting validation completion**
+- 🚫 **CANNOT PUSH without PAT authentication from .env file**
+- 🚫 **CANNOT use CLI git auth - MUST use .env PAT token**
 - 🚫 **NO EXCEPTIONS** - Emergency fixes must follow emergency override protocol
+
+## 🔐 MANDATORY PAT AUTHENTICATION - CRITICAL ENFORCEMENT
+
+**ABSOLUTELY CRITICAL:** ALL GitHub operations MUST use Personal Access Token from .env file. CLI authentication is FORBIDDEN.
+
+### 🚫 PAT ENFORCEMENT PROTOCOL
+
+**BLOCKING CONDITIONS:**
+- 🚫 **CANNOT perform git push without sourcing .env PAT**
+- 🚫 **CANNOT use `git push` directly - MUST use PAT authentication**
+- 🚫 **CANNOT rely on CLI git credentials**
+- 🚫 **MUST verify PAT is loaded before ANY GitHub operation**
+
+**MANDATORY PAT USAGE:**
+```bash
+# REQUIRED before ANY git operation
+source .env
+# Verify PAT is loaded
+echo "Using PAT: ${GITHUB_TOKEN:0:8}..."
+# Use PAT for authenticated operations
+git remote set-url origin https://${GITHUB_TOKEN}@github.com/swm-sink/claude-code-builder.git
+git push origin main
+```
+
+**ENFORCEMENT CONSEQUENCES:**
+- 🚫 **ANY GitHub operation without PAT is FORBIDDEN**
+- 🚫 **Must halt and demand PAT setup if .env missing**
+- 🚫 **No fallback to CLI authentication permitted**
 
 ### 50-Step Validation Requirements
 
