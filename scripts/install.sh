@@ -6,7 +6,7 @@
 set -e
 
 # Installation configuration
-REPO_URL="https://github.com/swm-sink/claude-code-builder.git"
+REPO_URL="https://github.com/smenssink/claude-code-builder.git"
 INSTALL_DIR="claude-code-builder"
 
 # Check prerequisites

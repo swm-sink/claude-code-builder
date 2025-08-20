@@ -1,24 +1,22 @@
 # Examples Directory
 
-This directory is planned for future development of real-world usage examples.
+This directory contains working examples of Claude Code Builder patterns.
 
-## Current Status
+## Quick Start Examples
 
-**Status:** Directory structure created, examples in development
+### `hello-world.sh`
+Simple demonstration of basic pattern usage:
+```bash
+cd examples
+./hello-world.sh
+```
 
-## Planned Examples
+### `composition-examples.sh`
+Advanced pattern composition examples:
+```bash
+./examples/composition-examples.sh
+```
 
-Future examples will demonstrate pattern usage in:
-- Node.js projects with npm integration
-- Python projects with pytest integration  
-- Go projects with module structure
-- Shell script automation
+## Running Examples
 
-## Contributing
-
-We welcome contributions of working examples that demonstrate practical pattern usage.
-
-**Requirements:**
-- Working, tested code examples
-- Clear documentation and setup instructions
-- Realistic project scenarios
+All examples work from their current location and properly locate patterns.

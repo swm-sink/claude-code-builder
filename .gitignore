@@ -74,7 +74,14 @@ private_key
 
 # Performance and Profiling
 .prof
+performance-baseline.json.tmp
+benchmark-*.json
 
 # Local Pattern Testing
 test-projects/
 sandbox/
+
+# Reorganization artifacts  
+*.tmp
+*.temp
+.reorganization/
