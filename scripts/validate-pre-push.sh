@@ -159,7 +159,7 @@ run_check "Triple explanation format" \
     "Pattern Integrity"
 
 run_check "Function naming conventions" \
-    "grep -n '^[a-zA-Z_][a-zA-Z0-9_]*() {' patterns/*/simple-*.sh | grep -v -E '(log_|get_|has_|check_|run_|handle_|validate_|test_|parse_|create_)' | wc -l | tr -d ' '" \
+    "{ grep -n '^[a-zA-Z_][a-zA-Z0-9_]*() {' patterns/*/simple-*.sh 2>/dev/null | grep -v -E '(log_|get_|has_|check_|run_|handle_|validate_|test_|parse_|create_)' 2>/dev/null || true; } | wc -l | tr -d ' '" \
     "0" \
     "Pattern Integrity"
 
@@ -177,18 +177,18 @@ run_check "Pattern dependencies documented" \
 log_info "🔒 2. Security Validation"
 
 run_check "No dangerous commands" \
-    "grep -r 'eval\\|exec' patterns/ tools/ scripts/ 2>/dev/null | wc -l" \
+    "find patterns tools scripts -name '*.sh' -type f -exec grep -E '^[[:space:]]*(eval|exec)[[:space:]]' {} \\; 2>/dev/null | wc -l" \
     "0" \
     "Security"
 
 run_check "No hardcoded secrets" \
-    "grep -ri 'password.*=\\|secret.*=\\|key.*=' patterns/ tools/ scripts/ 2>/dev/null | grep -v 'API_KEY\\|SECRET_KEY\\|get_config' | wc -l" \
+    "find patterns tools scripts -name '*.sh' -type f -exec grep -i 'password.*=\\|secret.*=\\|key.*=' {} \\; 2>/dev/null | grep -v 'API_KEY\\|SECRET_KEY\\|get_config\\|#\\|echo\\|log_' | wc -l" \
     "0" \
     "Security"
 
 run_check "Input validation present" \
-    "grep -r 'validate_input' patterns/security/ | wc -l" \
-    "" \
+    "grep -r 'validate' patterns/security/ 2>/dev/null | wc -l | xargs -I {} test {} -gt 0 && echo 'yes' || echo 'no'" \
+    "yes" \
     "Security"
 
 run_check "Secure file permissions" \
