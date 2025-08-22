@@ -1,0 +1,41 @@
+{
+  "session_name": "test-session",
+  "session_id": "session_1629840000",
+  "started": "2025-01-21T10:00:00Z",
+  "status": "active",
+  "workflow_type": "cmd-builder",
+  "current_step": 3,
+  "total_steps": 10,
+  "progress": "30%",
+  "context": {
+    "last_command": "cmd-builder:03-create",
+    "last_output": "Basic command implementation complete",
+    "next_suggested": "cmd-builder:04-test-args"
+  },
+  "session_log": [
+    {
+      "timestamp": "2025-01-21T10:00:00Z",
+      "action": "session_started",
+      "command": "session-start",
+      "input": "test-session"
+    },
+    {
+      "timestamp": "2025-01-21T10:05:00Z",
+      "action": "command_executed",
+      "command": "cmd-builder:01-analyze",
+      "input": "format-code"
+    },
+    {
+      "timestamp": "2025-01-21T10:10:00Z",
+      "action": "command_executed", 
+      "command": "cmd-builder:02-design",
+      "input": "analysis-results"
+    },
+    {
+      "timestamp": "2025-01-21T10:15:00Z",
+      "action": "command_executed",
+      "command": "cmd-builder:03-create",
+      "input": "design-spec"
+    }
+  ]
+}
