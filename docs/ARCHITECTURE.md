@@ -77,6 +77,10 @@ function_name() {
 
 ```
 claude-code-builder/
+├── .internal/                    # Internal working files
+│   ├── reports/                  # Analysis and test reports
+│   ├── checklists/              # Validation checklists
+│   └── drafts/                  # Working documents
 ├── patterns/                     # Pattern library
 │   ├── logging/
 │   │   ├── simple-logging.sh     # Pattern implementation
@@ -89,6 +93,8 @@ claude-code-builder/
 │   ├── quick-start.sh           # Quick start workflow
 │   └── test.sh                  # Test runner
 ├── tests/                       # Test suites
+│   ├── native-commands/         # Native command tests
+│   │   └── test-*.sh           # Command-specific tests
 │   ├── simple-pattern-test.sh   # Basic tests
 │   ├── integration-test-suite.sh # Integration tests
 │   └── ...

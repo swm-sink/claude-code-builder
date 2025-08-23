@@ -57,12 +57,30 @@ SPECIFIC IMPROVEMENTS:
 Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
+## File Organization Guidelines
+
+### Where to Place Files
+- **Patterns**: `patterns/{category}/simple-{name}.sh` (must be <50 lines)
+- **Tests**: `tests/` for integration tests, `tests/native-commands/` for command tests
+- **Tools**: `tools/` for analysis and utility scripts
+- **Documentation**: `docs/` for user-facing docs
+- **Reports/Analysis**: `.internal/reports/` (not for direct use)
+- **Checklists**: `.internal/checklists/` (internal validation)
+- **Working Drafts**: `.internal/drafts/` (work in progress)
+
+### Root Directory Rules
+- Maximum 12 files in root directory
+- No test files in root (use `tests/`)
+- No temporary files or reports in root
+- Run `./scripts/enforce-directory-structure.sh` before committing
+
 ## Code Review Process
 
 1. **Automated checks** run on every PR
 2. **Architecture validation** ensures <50 line compliance
-3. **Manual review** by maintainers
-4. **Merge** after approval
+3. **Directory structure** validation
+4. **Manual review** by maintainers
+5. **Merge** after approval
 
 ## Questions?
 

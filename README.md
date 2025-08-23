@@ -228,6 +228,24 @@ fi
 # ✅ Cross-platform compatible
 ```
 
+## 📁 Project Structure
+
+```
+claude-code-builder/
+├── patterns/           # Core pattern library (<50 lines each)
+├── tools/             # Analysis and quality tools
+├── scripts/           # Installation and utility scripts
+├── tests/             # Test suites
+│   └── native-commands/  # Native command tests
+├── .internal/         # Working documents (not for direct use)
+│   ├── reports/       # Analysis reports
+│   ├── checklists/    # Validation checklists
+│   └── drafts/        # Work in progress
+└── docs/              # Documentation
+```
+
+> **Note**: Test files have been organized into `tests/native-commands/` for better structure. Internal working documents are in `.internal/` and should not be referenced directly.
+
 ## 🎪 Community and Ecosystem
 
 ### 📈 **Growing Fast**
