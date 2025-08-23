@@ -139,6 +139,137 @@ git push origin main
 - Testing coverage
 - Production readiness
 
+## 📝 MANDATORY DOCUMENTATION UPDATE - PRE-PUSH ENFORCEMENT
+
+**ABSOLUTELY CRITICAL:** When user says "push to github", the following documentation update workflow MUST be executed automatically.
+
+### 🚫 Documentation Update Blocking Conditions
+
+- 🚫 **CANNOT PUSH without running documentation update workflow**
+- 🚫 **CANNOT PUSH if documentation is outdated or inaccurate**
+- 🚫 **CANNOT PUSH without updating CHANGELOG.md**
+- 🚫 **CANNOT PUSH if CLAUDE.md files are missing from any directory**
+- 🚫 **CANNOT PUSH without validating all @file links work**
+
+### Documentation Update Workflow (MANDATORY)
+
+When user requests "push to github", execute these steps:
+
+1. **Change Detection Phase**
+   ```bash
+   # Detect all changes since last commit
+   git diff --name-only HEAD~1
+   # Categorize changes: patterns, tools, scripts, docs
+   # Identify affected documentation
+   ```
+
+2. **Documentation Update Phase**
+   - **README.md** - Update if patterns/tools/major features changed
+   - **CHANGELOG.md** - ALWAYS update with all changes
+   - **Pattern READMEs** - Update if specific patterns modified
+   - **ARCHITECTURE.md** - Update if structure changed
+   - **Directory CLAUDE.md** - Update context for changed directories
+   - **Migration guides** - Update if breaking changes
+
+3. **CLAUDE.md Validation Phase**
+   - Verify CLAUDE.md exists in every directory
+   - Validate all @file links resolve correctly
+   - Ensure context is complete and accurate
+   - Check cross-references between CLAUDE.md files
+
+4. **Report Generation Phase**
+   ```bash
+   # Generate validation report in JSON
+   {
+     "timestamp": "ISO-8601",
+     "changes_detected": [...],
+     "docs_updated": [...],
+     "validation_status": "pass/fail",
+     "claude_context": "complete/incomplete"
+   }
+   # Store in .system/reports/push-validation.json
+   ```
+
+5. **Final Push Execution**
+   - Only proceed if all documentation updated
+   - Include documentation updates in commit
+   - Push with validation report
+
+### Documentation Automation Commands
+
+```bash
+# These commands are invoked automatically on "push to github"
+/detect-changes      # Identify what changed
+/update-docs        # Update affected documentation
+/validate-context   # Validate CLAUDE.md files
+/generate-report    # Create validation report
+/push-to-github    # Execute validated push
+```
+
+## 📄 MANDATORY FILE FORMAT ENFORCEMENT
+
+**ABSOLUTELY CRITICAL:** File formats MUST be enforced to prevent MD proliferation and maintain clear data/documentation separation.
+
+### 🚫 File Format Blocking Conditions
+
+- 🚫 **CANNOT create MD files for reports, metrics, or data** - Use JSON
+- 🚫 **CANNOT create MD files in .system/** - JSON only for system data
+- 🚫 **CANNOT remove CLAUDE.md from any directory** - Required for context
+- 🚫 **MUST convert existing MD reports to JSON** - Data belongs in JSON
+
+### File Format Rules
+
+#### CLAUDE.md Files (REQUIRED in every directory)
+- **Purpose**: AI context navigation and instructions
+- **Location**: Root of every directory
+- **Content**: Directory-specific AI context
+- **Linking**: Use @file to reference other CLAUDE.md files
+- **Special Status**: Only MD file allowed in every directory
+
+#### MD Files (ALLOWED ONLY for)
+1. **CLAUDE.md** - Required context file in each directory
+2. **User Documentation**
+   - README.md files (project and directory overviews)
+   - docs/*.md (user guides and references)
+   - CHANGELOG.md, CONTRIBUTING.md, LICENSE
+3. **Claude Code Native**
+   - .claude/commands/**/*.md (slash commands)
+   - .claude/agents/**/*.md (agent definitions)
+4. **Pattern Documentation**
+   - patterns/*/README.md (pattern user docs)
+   - context.md files (detailed technical context)
+
+#### JSON Files (REQUIRED for)
+1. **All Reports**
+   - Validation reports → .system/reports/*.json
+   - Test results → .system/reports/*.json
+   - Analysis reports → .system/reports/*.json
+2. **All Metrics & Data**
+   - Performance metrics → .system/metrics/*.json
+   - Quality scores → .system/metrics/*.json
+   - Coverage data → .system/metrics/*.json
+3. **All Configuration**
+   - Tool configs → */config.json
+   - Settings → .claude/settings.json
+   - Validation rules → .system/validation/*.json
+4. **All Temporary Data**
+   - Cache → .system/cache/*.json
+   - Sessions → .claude/sessions/*.json
+   - State → .system/state/*.json
+
+### Format Conversion Workflow
+
+```bash
+# Convert MD report to JSON
+cat report.md | ./scripts/md-to-json.sh > report.json
+
+# Validate file formats
+./scripts/enforce-file-formats.sh
+
+# Check for format violations
+find . -name "*.md" | ./scripts/validate-md-usage.sh
+```
+
 ## 🗂️ MANDATORY DIRECTORY ORGANIZATION - PERMANENT ENFORCEMENT
 
 **ABSOLUTELY CRITICAL:** Project structure MUST be maintained for clarity, AI comprehension, and professional standards.
@@ -212,6 +343,25 @@ Before ANY commit or push:
 - Clear separation of concerns
 - Consistent file placement rules
 - Reduced cognitive load
+
+## 🔗 Project Context Navigation
+
+### Directory Context Files
+Navigate to specific directory contexts using these file links:
+
+#### Core Systems
+- @file patterns/CLAUDE.md - Pattern library hub with all patterns
+- @file tools/CLAUDE.md - Tool collection and analysis utilities
+- @file scripts/CLAUDE.md - Utility scripts for automation
+- @file docs/CLAUDE.md - User documentation hub
+
+#### Development & Testing
+- @file examples/CLAUDE.md - Practical examples and templates
+- @file tests/CLAUDE.md - Test suite navigation
+- @file .claude/CLAUDE.md - Claude Code integration
+
+#### System Internals
+- @file .internal/CLAUDE.md - Internal system data (migrating to .system)
 
 ## 🎯 Claude Code Integration Overview
 
