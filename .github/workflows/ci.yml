@@ -20,7 +20,7 @@ jobs:
     
     - name: Set up environment
       run: |
-        chmod +x scripts/*.sh patterns/**/*.sh tools/*.sh tests/*.sh
+        chmod +x scripts/*.sh patterns/**/*.sh tools/*.sh tests/*.sh tests/**/*.sh
         
     - name: Run pattern tests
       run: |
