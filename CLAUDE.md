@@ -31,7 +31,7 @@ This aligns with the CLAUDE.md mandatory workflow while incorporating the user's
 
 ## 🔒 MANDATORY PRE-PUSH VALIDATION - 50 STEPS
 
-**ABSOLUTELY CRITICAL:** Before ANY git push to GitHub, ALL 50 validation steps in `PRE_PUSH_CHECKLIST.md` MUST be completed and verified.
+**ABSOLUTELY CRITICAL:** Before ANY git push to GitHub, ALL 50 validation steps in `.internal/checklists/PRE_PUSH_CHECKLIST.md` MUST be completed and verified.
 
 ### 🚫 BLOCKING CONDITIONS FOR GIT PUSH
 
@@ -89,7 +89,7 @@ git push origin main
 
 **Step 1: Manual Review**
 ```bash
-# Open and review PRE_PUSH_CHECKLIST.md
+# Open and review .internal/checklists/PRE_PUSH_CHECKLIST.md
 # Complete each of the 50 checks manually
 # Document any issues found and resolved
 ```
@@ -138,6 +138,80 @@ git push origin main
 - Documentation completeness
 - Testing coverage
 - Production readiness
+
+## 🗂️ MANDATORY DIRECTORY ORGANIZATION - PERMANENT ENFORCEMENT
+
+**ABSOLUTELY CRITICAL:** Project structure MUST be maintained for clarity, AI comprehension, and professional standards.
+
+### 🚫 BLOCKING CONDITIONS FOR FILE PLACEMENT
+
+**Root Directory Rules:**
+- 🚫 **CANNOT place test files in root** - ALL test files MUST go in `tests/` subdirectories
+- 🚫 **CANNOT place reports in root** - ALL reports MUST go in `.internal/reports/`
+- 🚫 **CANNOT place working docs in root** - Working/draft docs MUST go in `.internal/drafts/`
+- 🚫 **CANNOT exceed 12 files in root** - Root must remain clean and navigable
+- 🚫 **CANNOT create temporary files in root** - Use `.internal/` for all temporary work
+
+### 📁 MANDATORY DIRECTORY STRUCTURE
+
+```
+claude-code-builder/
+├── Core Files (KEEP IN ROOT - MAX 12)
+│   ├── README.md              # Project overview
+│   ├── CLAUDE.md             # AI instructions (this file)
+│   ├── LICENSE               # Legal requirements
+│   ├── CHANGELOG.md          # Version history
+│   ├── CONTRIBUTING.md       # Contribution guide
+│   ├── QUICK_START.sh        # Quick setup script
+│   └── [config files]        # .env, .gitignore, etc.
+│
+├── .internal/                # ALL working/temporary files
+│   ├── reports/             # Test reports, analysis reports
+│   ├── checklists/          # Validation checklists
+│   └── drafts/              # Working documents, versions
+│
+├── tests/                    # ALL test files
+│   └── native-commands/     # Native command tests
+│
+└── [Other directories as documented]
+```
+
+### 🔧 ENFORCEMENT PROTOCOL
+
+**Automatic File Placement Rules:**
+1. **Test Files**: Any file matching `test-*.sh` or `*-test.*` → `tests/` appropriate subdirectory
+2. **Reports**: Files containing REPORT, ANALYSIS, RESULTS → `.internal/reports/`
+3. **Checklists**: Files containing CHECKLIST, VALIDATION, TODO → `.internal/checklists/`
+4. **Working Docs**: Versioned files (v2, v3), DRAFT, WIP → `.internal/drafts/`
+5. **Temporary**: Any .tmp, .bak, or temporary files → `.internal/` or delete
+
+### ⚠️ ENFORCEMENT CONSEQUENCES
+
+**Violation Detection:**
+- Automated pre-commit hook checks root file count
+- Validation script enforces directory structure
+- CI/CD pipeline blocks on structure violations
+
+**Violation Response:**
+- 🚫 Commit blocked until structure fixed
+- 🚫 Must run `scripts/enforce-directory-structure.sh`
+- 🚫 Document reason if override needed (emergency only)
+
+### 📝 ENFORCEMENT CHECKLIST
+
+Before ANY commit or push:
+1. ✅ Count root directory files: `ls -1 | wc -l` (must be ≤ 12)
+2. ✅ No test files in root: `ls test-*.sh 2>/dev/null | wc -l` (must be 0)
+3. ✅ No reports in root: `ls *REPORT*.md 2>/dev/null | wc -l` (must be 0)
+4. ✅ No temporary files: `ls *.tmp *.bak 2>/dev/null | wc -l` (must be 0)
+5. ✅ Run enforcement: `./scripts/enforce-directory-structure.sh`
+
+**This directory organization ensures:**
+- Clean, professional repository structure
+- Easy navigation for humans and AI
+- Clear separation of concerns
+- Consistent file placement rules
+- Reduced cognitive load
 
 ## 🎯 Claude Code Integration Overview
 
