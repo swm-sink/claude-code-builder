@@ -23,7 +23,7 @@ This directory contains utility scripts that automate common tasks for Claude Co
 - `validate-claude-context.sh` - CLAUDE.md validation (to be created)
 
 ### Migration & Maintenance
-- `migrate-from-level1-dev.sh` - Migration from Level-1-Dev
+- `migrate-from-level1-dev.sh` - Migration from legacy systems
 - `upgrade-patterns.sh` - Pattern version updates
 - `cleanup.sh` - Project cleanup utilities
 

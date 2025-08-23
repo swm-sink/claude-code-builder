@@ -32,7 +32,7 @@ All `test-*.sh` files have been moved:
 - `NATIVE_COMPLETION_REPORT.md`
 - `SCRIPT_DEPENDENCY_MAP.md`
 
-#### Checklists → `.internal/checklists/`
+#### Checklists → `.system/checklists/`
 - `PRE_PUSH_CHECKLIST.md`
 - `CONVERSION_VALIDATION_CHECKLIST.md`
 - `CONVERSION_PRIORITY_ORDER.md`
@@ -58,7 +58,7 @@ All `test-*.sh` files have been moved:
 cat PRE_PUSH_CHECKLIST.md
 
 # New:
-cat .internal/checklists/PRE_PUSH_CHECKLIST.md
+cat .system/checklists/PRE_PUSH_CHECKLIST.md
 ```
 
 ### If you reference reports:

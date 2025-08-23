@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document recognizes all contributors to the Dev Platform project and establishes how contributions are tracked and attributed. The Dev Platform is derived from the Level-1-Dev meta-development platform, originally created as part of the AI Podcasts Nobody Knows project.
+This document recognizes all contributors to the Claude Code Builder project and establishes how contributions are tracked and attributed. Claude Code Builder evolved from the original meta-development platform concepts, adapted specifically for Claude Code integration and AI-native development.
 
 ## 🎯 Attribution Philosophy
 
@@ -12,21 +12,21 @@ This document recognizes all contributors to the Dev Platform project and establ
 
 **Connection:** This teaches you how open source communities recognize contributions and build inclusive development environments.
 
-## 📜 Original Level-1-Dev Attribution
+## 📜 Original Platform Attribution
 
 ### Primary Attribution
-**Dev Platform is derived from Level-1-Dev**, originally created as part of:
+**Claude Code Builder evolved from original platform concepts**, originally created as part of:
 - **Project:** AI Podcasts Nobody Knows
 - **Repository:** Private development repository
 - **License:** MIT License (compatible extraction)
 - **Extraction Date:** August 2025
 
-### Original Level-1-Dev Contributors
-These individuals contributed to the original Level-1-Dev meta-development platform that forms the foundation of this project:
+### Original Platform Contributors
+These individuals contributed to the original meta-development platform concepts that informed this project:
 
 #### Project Leadership
 - **AI Podcasts Nobody Knows Team** - Original project creators and maintainers
-- **Level-1-Dev Platform Developers** - Meta-development platform architects
+- **Original Platform Developers** - Meta-development platform architects
 
 #### Original Code Contributors
 - **Core Platform Contributors** - Developers who built the foundational Level-1-Dev patterns

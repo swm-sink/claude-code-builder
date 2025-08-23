@@ -65,7 +65,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 - **Tools**: `tools/` for analysis and utility scripts
 - **Documentation**: `docs/` for user-facing docs
 - **Reports/Analysis**: `.internal/reports/` (not for direct use)
-- **Checklists**: `.internal/checklists/` (internal validation)
+- **Checklists**: `.system/checklists/` (internal validation)
 - **Working Drafts**: `.internal/drafts/` (work in progress)
 
 ### Root Directory Rules

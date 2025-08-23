@@ -346,7 +346,7 @@ Claude Code Builder is released under the [MIT License](./LICENSE). This means y
 Claude Code Builder provides AI-native development patterns specifically designed for Claude Code integration and agent development. We're grateful to the original contributors and the open source community.
 
 **Key Contributors:**
-- Original Level-1-Dev architecture and patterns
+- Original architecture and core patterns development
 - Claude Code integration patterns
 - Security hardening and vulnerability fixes
 - Cross-platform compatibility testing

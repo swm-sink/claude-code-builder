@@ -179,7 +179,7 @@ This directory contains the complete documentation for the dev-platform project,
 **Migration Documentation** - Upgrading and migrating
 
 #### `/migration/from-level1-dev.md`
-**Level-1-Dev Migration** - Complete migration guide
+**Project Migration** - Complete migration guide
 
 **Contents:**
 - Pre-migration analysis
