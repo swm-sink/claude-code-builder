@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-08-23T13:00:02Z",
+  "changes_detected": [
+    "[32m[INFO][0m Detecting changes since last commit...",
+    ".claude/CLAUDE.md",
+    ".internal/CLAUDE.md",
+    ".internal/reports/100_STEP_VALIDATION_REPORT.md",
+    ".internal/reports/COMPREHENSIVE_TEST_REPORT.md",
+    ".internal/reports/NATIVE_COMPLETION_REPORT.md",
+    ".internal/reports/SCRIPT_DEPENDENCY_MAP.md",
+    ".internal/reports/claude-validation-20250823-083402.json",
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "docs/CLAUDE.md",
+    "examples/CLAUDE.md",
+    "patterns/CLAUDE.md",
+    "scripts/CLAUDE.md",
+    "scripts/enforce-directory-structure.sh",
+    "scripts/update-documentation.sh",
+    "scripts/validate-claude-context.sh",
+    "tests/CLAUDE.md"
+  ],
+  "documentation_updated": [
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "validation_status": "pass",
+  "claude_context": "complete",
+  "file_format_compliance": true
+}

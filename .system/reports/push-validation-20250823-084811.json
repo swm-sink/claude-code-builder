@@ -1,0 +1,24 @@
+{
+  "timestamp": "2025-08-23T12:48:11Z",
+  "changes_detected": [
+    "[32m[INFO][0m Detecting changes since last commit...",
+    ".claude/CLAUDE.md",
+    ".internal/CLAUDE.md",
+    ".internal/reports/claude-validation-20250823-083402.json",
+    "CLAUDE.md",
+    "docs/CLAUDE.md",
+    "examples/CLAUDE.md",
+    "patterns/CLAUDE.md",
+    "scripts/CLAUDE.md",
+    "scripts/update-documentation.sh",
+    "scripts/validate-claude-context.sh",
+    "tests/CLAUDE.md"
+  ],
+  "documentation_updated": [
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "validation_status": "fail",
+  "claude_context": "complete",
+  "file_format_compliance": true
+}

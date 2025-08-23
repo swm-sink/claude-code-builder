@@ -5,6 +5,29 @@ All notable changes to Claude Code Builder will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2025-08-23
+
+### Added
+- Comprehensive documentation enforcement system
+- CLAUDE.md context files for all project directories
+- @file navigation linking between context files
+- Automatic documentation update workflow
+- Validation scripts for CLAUDE.md files and links
+- File format enforcement (MD for docs/context, JSON for data/reports)
+- Directory organization enforcement in CLAUDE.md
+- 100-step validation checklist for pre-push workflow
+
+### Changed
+- Reorganized project structure (29→7 root files)
+- Moved test files to tests/ subdirectory
+- Updated CI/CD workflows for new test structure
+- Enhanced CLAUDE.md with mandatory enforcement sections
+
+### Fixed
+- GitHub Actions CI/CD test discovery
+- Validation script false positives
+- @file link parsing accuracy
+
 ## [1.0.0] - 2025-01-19
 
 ### 🎉 Production-Ready AI-Native Development Patterns

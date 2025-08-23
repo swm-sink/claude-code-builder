@@ -76,19 +76,18 @@ update_changelog() {
     
     log_info "Updating CHANGELOG.md..."
     
-    # Create changelog entry
+    # Only update if there's an existing Unreleased section
+    if ! grep -q "## \[Unreleased\]" CHANGELOG.md; then
+        log_info "No [Unreleased] section found, skipping CHANGELOG update"
+        return 0
+    fi
+    
+    # Update the date in the Unreleased section
     local date=$(date '+%Y-%m-%d')
-    local entry="## [Unreleased] - $date\n\n### Changed\n"
-    
-    while IFS= read -r file; do
-        entry="$entry- Updated: $file\n"
-    done <<< "$changes"
-    
-    # Insert after header
-    sed -i.bak "/^# Changelog/a\\
-\\
-$entry" CHANGELOG.md 2>/dev/null || true
+    sed -i.bak "s/## \[Unreleased\].*/## [Unreleased] - $date/" CHANGELOG.md 2>/dev/null || true
     rm -f CHANGELOG.md.bak
+    
+    log_info "Updated CHANGELOG.md Unreleased section date"
 }
 
 # Validate CLAUDE.md files exist
@@ -117,15 +116,36 @@ validate_file_links() {
     
     local errors=0
     while IFS= read -r file; do
-        while IFS= read -r link; do
-            local target="${link#@file }"
-            target="${target%% -*}"
-            
-            if [[ ! -f "$target" ]]; then
-                log_warn "Broken @file link in $file: $target"
-                ((errors++))
+        local dir=$(dirname "$file")
+        
+        # Only look for actual @file links at the start of lines or after "- "
+        while IFS= read -r line; do
+            if [[ "$line" =~ ^[[:space:]]*-?[[:space:]]*@file[[:space:]]+([^[:space:]]+) ]]; then
+                local target="${BASH_REMATCH[1]}"
+                # Remove description after space (but keep hyphens in paths)
+                target="${target%% *}"
+                
+                # Skip if this is not actually a file path (contains words like "links", "to", etc)
+                if [[ "$target" =~ ^(links|to|hops|navigation)$ ]]; then
+                    continue
+                fi
+                
+                # Resolve relative to the CLAUDE.md file's directory
+                local full_path
+                if [[ "$target" = /* ]]; then
+                    full_path=".$target"
+                elif [[ "$dir" = "." ]]; then
+                    full_path="$target"
+                else
+                    full_path="$dir/$target"
+                fi
+                
+                if [[ ! -f "$full_path" ]]; then
+                    log_warn "Broken @file link in $file: $target"
+                    ((errors++))
+                fi
             fi
-        done < <(grep "@file" "$file" 2>/dev/null || true)
+        done < "$file"
     done < <(find . -name "CLAUDE.md" -type f)
     
     if [[ $errors -gt 0 ]]; then
@@ -144,7 +164,7 @@ generate_report() {
     
     log_info "Generating validation report..."
     
-    local report_file=".internal/reports/push-validation-$(date +%Y%m%d-%H%M%S).json"
+    local report_file=".system/reports/push-validation-$(date +%Y%m%d-%H%M%S).json"
     mkdir -p "$(dirname "$report_file")"
     
     cat > "$report_file" <<EOF

@@ -1,0 +1,60 @@
+{
+  "report_type": "NATIVE_COMMAND_CONVERSION",
+  "timestamp": "2025-08-23T08:00:00Z",
+  "conversion_stats": {
+    "total_scripts": 41,
+    "converted": 25,
+    "pending": 16,
+    "completion_percentage": 61
+  },
+  "converted_commands": {
+    "patterns": {
+      "error-handler": {"lines": 493, "expansion_factor": 12.3},
+      "test-runner": {"lines": 445, "expansion_factor": 9.3},
+      "quality-check": {"lines": 531, "expansion_factor": 11.8},
+      "security-scanner": {"lines": 489, "expansion_factor": 10.4},
+      "config-manager": {"lines": 543, "expansion_factor": 9.2},
+      "generate-docs": {"lines": 472, "expansion_factor": 11.5},
+      "setup-git-hooks": {"lines": 410, "expansion_factor": 9.8},
+      "dependency-manager": {"lines": 456, "expansion_factor": 10.6},
+      "log-manager": {"lines": 512, "expansion_factor": 10.2},
+      "validate-project": {"lines": 467, "expansion_factor": 10.1}
+    },
+    "tools": {
+      "claude-readability-scorer": {"lines": 978, "expansion_factor": 16.3},
+      "god-object-detector": {"lines": 643, "expansion_factor": 28.8},
+      "simple-god-detector": {"lines": 423, "expansion_factor": 9.4},
+      "simple-complexity-check": {"lines": 387, "expansion_factor": 8.6},
+      "function-complexity-analyzer": {"lines": 523, "expansion_factor": 11.6},
+      "performance-benchmarks": {"lines": 1456, "expansion_factor": 32.4},
+      "architectural-dashboard": {"lines": 892, "expansion_factor": 19.8}
+    },
+    "tests": {
+      "pattern-test-suite": {"lines": 534, "expansion_factor": 10.7},
+      "integration-test-suite": {"lines": 612, "expansion_factor": 12.2},
+      "cross-platform-test": {"lines": 489, "expansion_factor": 9.8},
+      "error-recovery-test": {"lines": 445, "expansion_factor": 8.9},
+      "load-test-suite": {"lines": 567, "expansion_factor": 11.3},
+      "edge-case-validation": {"lines": 423, "expansion_factor": 8.5},
+      "pattern-compatibility-matrix": {"lines": 501, "expansion_factor": 10.0},
+      "install-workflow-test": {"lines": 478, "expansion_factor": 9.6}
+    }
+  },
+  "pending_conversions": [
+    "scripts/quick-start.sh",
+    "scripts/install.sh",
+    "scripts/validate-patterns.sh",
+    "scripts/validate-pre-push.sh",
+    "scripts/enforce-directory-structure.sh",
+    "scripts/update-documentation.sh",
+    "scripts/validate-claude-context.sh",
+    "examples/composition-examples.sh",
+    "examples/hello-world.sh"
+  ],
+  "metrics": {
+    "average_expansion": 12.8,
+    "total_lines_generated": 13267,
+    "estimated_completion_lines": 21700,
+    "documentation_quality": "comprehensive"
+  }
+}

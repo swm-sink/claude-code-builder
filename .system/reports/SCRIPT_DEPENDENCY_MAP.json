@@ -1,0 +1,65 @@
+{
+  "report_type": "SCRIPT_DEPENDENCY_MAP",
+  "timestamp": "2025-08-23T08:00:00Z",
+  "scripts": {
+    "quick-start.sh": {
+      "dependencies": [
+        "patterns/error-handling/simple-error-handling.sh",
+        "patterns/logging/simple-logging.sh",
+        "patterns/project-validation/project-validation.sh"
+      ],
+      "external_commands": ["git", "curl", "bash"],
+      "required_version": "bash 3.0+"
+    },
+    "install.sh": {
+      "dependencies": [
+        "patterns/error-handling/simple-error-handling.sh"
+      ],
+      "external_commands": ["git", "curl", "chmod"],
+      "required_version": "bash 3.0+"
+    },
+    "validate-patterns.sh": {
+      "dependencies": [
+        "patterns/error-handling/simple-error-handling.sh",
+        "patterns/testing/simple-test-runner.sh"
+      ],
+      "external_commands": ["find", "wc", "grep"],
+      "required_version": "bash 3.0+"
+    },
+    "validate-pre-push.sh": {
+      "dependencies": [
+        "patterns/error-handling/simple-error-handling.sh",
+        "patterns/quality-gates/quality-check.sh",
+        "patterns/security/security-basics.sh"
+      ],
+      "external_commands": ["git", "shellcheck", "grep"],
+      "required_version": "bash 4.0+"
+    },
+    "update-documentation.sh": {
+      "dependencies": [
+        "patterns/error-handling/simple-error-handling.sh"
+      ],
+      "external_commands": ["git", "sed", "date"],
+      "required_version": "bash 3.0+"
+    },
+    "validate-claude-context.sh": {
+      "dependencies": [
+        "patterns/error-handling/simple-error-handling.sh"
+      ],
+      "external_commands": ["find", "grep", "wc"],
+      "required_version": "bash 3.0+"
+    }
+  },
+  "pattern_usage": {
+    "error-handling": ["all scripts"],
+    "logging": ["quick-start.sh", "install.sh"],
+    "testing": ["validate-patterns.sh"],
+    "quality-gates": ["validate-pre-push.sh"],
+    "security": ["validate-pre-push.sh"],
+    "project-validation": ["quick-start.sh"]
+  },
+  "external_dependencies": {
+    "required": ["bash", "git", "curl"],
+    "optional": ["shellcheck", "docker", "npm", "python", "go"]
+  }
+}

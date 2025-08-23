@@ -20,8 +20,8 @@ FIXES=0
 # Check and create required directories
 ensure_directories() {
     local dirs=(
-        ".internal/reports"
-        ".internal/checklists"
+        ".system/reports"
+        ".system/checklists"
         ".internal/drafts"
         "tests/native-commands"
     )
@@ -71,8 +71,8 @@ enforce_report_files() {
     if [[ -n "$report_files" ]]; then
         log_warn "Found report files in root directory"
         for file in $report_files; do
-            log_info "  Moving $file → .internal/reports/"
-            mv "$file" .internal/reports/
+            log_info "  Moving $file → .system/reports/"
+            mv "$file" .system/reports/
             ((FIXES++))
         done
     fi
@@ -85,8 +85,8 @@ enforce_checklist_files() {
     if [[ -n "$checklist_files" ]]; then
         log_warn "Found checklist files in root directory"
         for file in $checklist_files; do
-            log_info "  Moving $file → .internal/checklists/"
-            mv "$file" .internal/checklists/
+            log_info "  Moving $file → .system/checklists/"
+            mv "$file" .system/checklists/
             ((FIXES++))
         done
     fi

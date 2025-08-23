@@ -81,10 +81,16 @@ validate_file_links() {
         local dir=$(dirname "$claude_file")
         
         while IFS= read -r line; do
-            if [[ "$line" =~ @file[[:space:]]+([^[:space:]]+) ]]; then
+            # Only match actual @file links that start with "- @file" or are at start of line
+            if [[ "$line" =~ ^[[:space:]]*-?[[:space:]]*@file[[:space:]]+([^[:space:]]+) ]]; then
                 local link_path="${BASH_REMATCH[1]}"
-                # Remove any trailing description after dash
-                link_path="${link_path%% -*}"
+                # Remove any trailing description after space (but keep hyphens in paths)
+                link_path="${link_path%% *}"
+                
+                # Skip if this is not actually a file path (contains words like "links", "to", etc)
+                if [[ "$link_path" =~ ^(links|to|hops|navigation)$ ]]; then
+                    continue
+                fi
                 
                 # Resolve relative to the CLAUDE.md file's directory
                 local full_path
@@ -161,7 +167,7 @@ generate_report() {
     
     log_info "Generating CLAUDE.md validation report..."
     
-    local report_file=".internal/reports/claude-validation-$(date +%Y%m%d-%H%M%S).json"
+    local report_file=".system/reports/claude-validation-$(date +%Y%m%d-%H%M%S).json"
     mkdir -p "$(dirname "$report_file")"
     
     local claude_count=$(find . -name "CLAUDE.md" -type f | wc -l)

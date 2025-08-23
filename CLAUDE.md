@@ -89,7 +89,7 @@ git push origin main
 
 **Step 1: Manual Review**
 ```bash
-# Open and review .internal/checklists/PRE_PUSH_CHECKLIST.md
+# Open and review .system/checklists/PRE_PUSH_CHECKLIST.md
 # Complete each of the 50 checks manually
 # Document any issues found and resolved
 ```
@@ -311,8 +311,8 @@ claude-code-builder/
 
 **Automatic File Placement Rules:**
 1. **Test Files**: Any file matching `test-*.sh` or `*-test.*` → `tests/` appropriate subdirectory
-2. **Reports**: Files containing REPORT, ANALYSIS, RESULTS → `.internal/reports/`
-3. **Checklists**: Files containing CHECKLIST, VALIDATION, TODO → `.internal/checklists/`
+2. **Reports**: Files containing REPORT, ANALYSIS, RESULTS → `.system/reports/`
+3. **Checklists**: Files containing CHECKLIST, VALIDATION, TODO → `.system/checklists/`
 4. **Working Docs**: Versioned files (v2, v3), DRAFT, WIP → `.internal/drafts/`
 5. **Temporary**: Any .tmp, .bak, or temporary files → `.internal/` or delete
 
@@ -361,7 +361,7 @@ Navigate to specific directory contexts using these file links:
 - @file .claude/CLAUDE.md - Claude Code integration
 
 #### System Internals
-- @file .internal/CLAUDE.md - Internal system data (migrating to .system)
+- @file .system/README.md - System data and reports directory
 
 ## 🎯 Claude Code Integration Overview
 
